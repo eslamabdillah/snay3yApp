@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+    tools:context=".ui.authentication_forms.choose_login_signup.Choose_login_signupActivity">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="232dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/sanaiy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/stgeldool"
+        android:layout_width="349dp"
+        android:layout_height="169dp"
+        android:layout_marginTop="220dp"
+        android:src="@drawable/tsgeldool"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_sign_employee"
+        android:layout_width="175dp"
+        android:layout_height="90dp"
+
+        android:background="@drawable/button_ui"
+
+        android:text="كموظف"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.625" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_sign_client"
+        android:layout_width="175dp"
+        android:layout_height="90dp"
+
+        android:background="@drawable/button_ui"
+        android:text="كعميل"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.822" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
