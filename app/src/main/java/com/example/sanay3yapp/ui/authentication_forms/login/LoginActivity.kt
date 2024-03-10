@@ -1,11 +1,10 @@
 package com.example.sanay3yapp.ui.authentication_forms.login
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
-import com.example.sanay3yapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.sanay3yapp.databinding.ActivityLoginBinding
+import com.example.sanay3yapp.ui.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -14,7 +13,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(loginBinding.root)
-
+        loginBinding.buttonLogin.setOnClickListener({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        })
 
 
     }
