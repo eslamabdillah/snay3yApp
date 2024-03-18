@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_firstName"
         android:layout_width="300dp"
 
         android:layout_height="60dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editText_lastName"
         android:layout_width="300dp"
         android:layout_height="60dp"
 
@@ -58,10 +58,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_firstName" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editText_phoneNumber"
         android:layout_width="300dp"
         android:layout_height="60dp"
 
@@ -78,15 +78,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_lastName" />
 
+
+    <EditText
+        android:id="@+id/editText_email"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_test_ui"
+        android:fontFamily="sans-serif-light"
+        android:hint="الايميل"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/colorPrimaryExtraLight"
+
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_phoneNumber" />
 
     <EditText
         android:id="@+id/editText_password"
         android:layout_width="300dp"
         android:layout_height="60dp"
 
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_test_ui"
         android:fontFamily="sans-serif-light"
         android:hint="كلمة السر"
@@ -94,20 +113,20 @@
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/colorPrimaryExtraLight"
-        android:textSize="25sp"
 
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_email" />
 
     <EditText
 
-        android:id="@+id/editText4"
+        android:id="@+id/editText_passwordConfirm"
         android:layout_width="300dp"
 
         android:layout_height="60dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_test_ui"
         android:fontFamily="sans-serif-light"
         android:hint="تأكيد كلمة السر "
@@ -127,7 +146,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
 
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/button_ui"
         android:text="تسجيل"
         android:textColor="@color/white"
@@ -137,11 +156,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/editText_passwordConfirm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
