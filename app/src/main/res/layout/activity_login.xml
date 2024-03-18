@@ -19,15 +19,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText_phoneNumber"
+        android:id="@+id/editText_email"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
 
         android:background="@drawable/edit_test_ui"
         android:fontFamily="sans-serif-light"
-        android:hint="رقم الموبيل"
-        android:inputType="number"
+        android:hint="الايميل"
+        android:inputType="textEmailAddress"
 
         android:padding="10dp"
         android:textColor="@color/black"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_phoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_email" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_login"
