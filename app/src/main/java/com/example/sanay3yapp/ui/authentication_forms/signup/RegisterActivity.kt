@@ -11,5 +11,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         registerBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(registerBinding.root)
+        //
     }
 }
