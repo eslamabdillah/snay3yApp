@@ -9,10 +9,18 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.authentication_forms.choose_login_signup.Choose_login_signupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.authentication_forms.signup.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.authentication_forms.login.LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.Splash"
             android:exported="true"
@@ -23,12 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
