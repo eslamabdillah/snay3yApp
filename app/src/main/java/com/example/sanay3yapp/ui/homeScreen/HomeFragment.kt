@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
 
         homeFragmentBinding!!.offers.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_content, HomeFragmentOffers())
+                .replace(R.id.fragment_content, HomeFragmentJobs())
                 .commit()
         }
     }

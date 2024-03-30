@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sanay3yapp.databinding.ActivityLoginBinding
-import com.example.sanay3yapp.ui.authentication_forms.choose_login_signup.Choose_login_signupActivity
 import com.example.sanay3yapp.ui.MainActivity
+import com.example.sanay3yapp.ui.authentication_forms.choose_login_signup.Choose_login_signupActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -30,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         auth = Firebase.auth
-
 
     }
 }
