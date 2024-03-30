@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentHomeBinding
+import com.example.sanay3yapp.ui.AddJobDialogFragment
 
 class HomeFragment : Fragment() {
 
     private var homeFragmentBinding: FragmentHomeBinding? = null
     private val binding get() = homeFragmentBinding!!
+    lateinit var bottomSheetFragment: AddJobDialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +43,13 @@ class HomeFragment : Fragment() {
                 .replace(R.id.fragment_content, HomeFragmentJobs())
                 .commit()
         }
+
+        homeFragmentBinding!!.addJob.setOnClickListener({
+            bottomSheetFragment = AddJobDialogFragment()
+            bottomSheetFragment.show(childFragmentManager, "addJobSheet")
+
+
+        })
     }
 
 

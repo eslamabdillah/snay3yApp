@@ -15,6 +15,7 @@ import dataBase.models.Offer
 class DetailsJobFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsJobBinding
+    lateinit var bottomSheet: FragmentGiveOffer
     private lateinit var adapter: OffersAdapter
     private var jobId: String? = null
     private var job = Job()
@@ -46,6 +47,10 @@ class DetailsJobFragment : Fragment() {
         loadJob()
         loadOffers()
         setupAdapter()
+        binding.giveOffer.setOnClickListener({
+            bottomSheet = FragmentGiveOffer()
+            bottomSheet.show(childFragmentManager, "give offer")
+        })
 
 
     }

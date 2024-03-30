@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="10">
+
+    <EditText
+        android:id="@+id/offer_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:background="@drawable/edittext_background"
+        android:gravity="top|start"
+        android:hint="اكتب التفاصيل هنا"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#808080"
+        android:textDirection="anyRtl"
+        android:textSize="28sp" />
+
+    <LinearLayout
+        android:id="@+id/job_cost_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:text="جنيه"
+            android:textSize="32sp" />
+
+        <EditText
+            android:id="@+id/job_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:background="@drawable/edittext_background"
+            android:hint="ادخل الميزانية"
+            android:padding="8dp"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/job_duration_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:text="يوم"
+            android:textSize="32sp" />
+
+        <EditText
+            android:id="@+id/job_durarion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:background="@drawable/edittext_background"
+            android:hint="مدة التنفيذ"
+            android:padding="8dp"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorSecondary"
+        android:padding="8dp"
+        android:text="اضافة العرض"
+        android:textSize="32sp" />
+
+</LinearLayout>
