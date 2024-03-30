@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
 
         // Set default selected item if needed
         mainBinding.bottomTabs.selectedItemId = R.id.navigation_home
+
+        //add job
+
     }
 
     private fun showFragmentSelected(fragment: Fragment) {
