@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/name_worker_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -42,14 +42,14 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/photo"
             app:layout_constraintEnd_toStartOf="@id/photo"
-            app:layout_constraintTop_toTopOf="@id/name" />
+            app:layout_constraintTop_toTopOf="@id/name_worker_item" />
 
         <TextView
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="2"
-            android:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
+            android:text="باذن الله معاك الاسطي محمد يخلصلك الشقة دي فى اتنين كلام وباحسن سعر امن شاء الله"
             android:textSize="24sp"
             app:layout_constraintTop_toBottomOf="@id/photo" />
 
@@ -72,7 +72,6 @@
             android:text="الميزانية : 1000 جنيه"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/duration"
             app:layout_constraintTop_toBottomOf="@id/line" />
 
         <TextView
@@ -82,11 +81,22 @@
             android:layout_margin="10dp"
             android:text="المدة : 10 ايام"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/cost"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line"
+            app:layout_constraintEnd_toEndOf="@id/cost"
+            app:layout_constraintTop_toBottomOf="@id/cost"
 
             />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorSecondary"
+            android:text="روية المزيد"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/duration"
+            app:layout_constraintEnd_toStartOf="@id/cost"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cost" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
