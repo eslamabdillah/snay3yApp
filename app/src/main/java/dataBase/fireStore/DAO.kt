@@ -5,6 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dataBase.models.Worker
 
 
 object DAO {
@@ -52,6 +53,18 @@ object DAO {
             .collection("workerOffers")
             .get()
             .addOnCompleteListener(onCompleteListener)
+    }
+
+    fun addNewWorker(newWorker: Worker, onCompleteListener: OnCompleteListener<Void>) {
+        // Check if the worker has a valid ID
+        if (newWorker.id.isNullOrEmpty()) {
+            throw IllegalArgumentException("Invalid ID for the worker.")
+        } else {
+            // Proceed with setting the document in Firestore
+            db.collection("users").document(newWorker.id)
+                .set(newWorker)
+                .addOnCompleteListener(onCompleteListener)
+        }
     }
 
 
