@@ -24,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         })
+///
 
         val intent = Intent(this,Choose_login_signupActivity::class.java)
         loginBinding.buttonSignup.setOnClickListener {
