@@ -22,6 +22,9 @@
             android:name=".ui.authentication_forms.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.authentication_forms.signup.SignUpWorker"
+            android:exported="false" />
+        <activity
             android:name=".ui.Splash"
             android:exported="true"
             android:label="@string/app_name">
