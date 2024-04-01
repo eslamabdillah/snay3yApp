@@ -1,13 +1,11 @@
 package com.example.sanay3yapp.ui
 
-import dataBase.models.Job
-import dataBase.models.Offer
+import dataBase.models.Client
+import dataBase.models.Worker
 
-class SessionUser(
-    var name: String = "",
-    var id: String = "",
-    var MyOffers: MutableList<Offer>,
-    var currentJob: Job,
-) {
-
+object SessionUser {
+    var mode: Boolean = false
+    var currentUserType = ""
+    var worker = Worker()
+    var client = Client()
 }

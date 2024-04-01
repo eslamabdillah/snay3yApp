@@ -1,10 +1,13 @@
 package dataBase.fireStore
 
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dataBase.models.Client
 import dataBase.models.Worker
 
 
@@ -31,7 +34,13 @@ object DAO {
 
 
     fun getWorker(workerId: String, onCompleteListener: OnCompleteListener<DocumentSnapshot>) {
-        val docRef = db.collection("workers_demo").document(documentId).get()
+        val docRef = db.collection("workers").document(workerId).get()
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun getClient(clientId: String, onCompleteListener: OnCompleteListener<DocumentSnapshot>) {
+        val docRef = db.collection("clients").document(clientId).get()
             .addOnCompleteListener(onCompleteListener)
 
     }
@@ -61,10 +70,55 @@ object DAO {
             throw IllegalArgumentException("Invalid ID for the worker.")
         } else {
             // Proceed with setting the document in Firestore
-            db.collection("users").document(newWorker.id)
+            db.collection("workers").document(newWorker.id)
                 .set(newWorker)
                 .addOnCompleteListener(onCompleteListener)
         }
+    }
+
+    fun addNewClient(newClient: Client, onCompleteListener: OnCompleteListener<Void>) {
+        // Check if the worker has a valid ID
+        if (newClient.id.isNullOrEmpty()) {
+            throw IllegalArgumentException("Invalid ID for the worker.")
+        } else {
+            // Proceed with setting the document in Firestore
+            db.collection("clients").document(newClient.id)
+                .set(newClient)
+                .addOnCompleteListener(onCompleteListener)
+        }
+    }
+
+    fun getUser(
+        id: String,
+        onSuccessListenerWorker: OnSuccessListener<DocumentSnapshot>,
+        onFailureListenerWorker: OnFailureListener,
+        onSuccessListenerClient: OnSuccessListener<DocumentSnapshot>,
+        onFailureListenerClient: OnFailureListener,
+    ) {
+        db.collection("worker").document(id).get()
+            .addOnSuccessListener { workerDoc ->
+                if (workerDoc.exists()) {
+                    onSuccessListenerWorker
+                } else {
+                    db.collection("clients").document(id).get()
+                        .addOnSuccessListener { clientDoc ->
+                            if (clientDoc.exists()) {
+                                onSuccessListenerClient
+                            } else {
+                                onFailureListenerClient.onFailure(Exception("Document not found in either collection"))
+                            }
+
+                        }
+                        .addOnFailureListener {
+                            onFailureListenerClient
+                        }
+                }
+            }
+
+            .addOnFailureListener {
+                onFailureListenerWorker
+            }
+
     }
 
 

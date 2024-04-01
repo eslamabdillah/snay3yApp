@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sanay3yapp.databinding.ActivityChooseLoginSignupBinding
+import com.example.sanay3yapp.ui.authentication_forms.signup.SignUpClient
 import com.example.sanay3yapp.ui.authentication_forms.signup.SignUpWorker
 
 class Choose_login_signupActivity : AppCompatActivity() {
@@ -12,9 +13,17 @@ class Choose_login_signupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         choose_login_signup = ActivityChooseLoginSignupBinding.inflate(layoutInflater)
         setContentView(choose_login_signup.root)
+
+
         choose_login_signup.buttonSignEmployee.setOnClickListener {
 
             val intent = Intent(this, SignUpWorker::class.java)
+            startActivity(intent)
+        }
+
+        choose_login_signup.buttonSignClient.setOnClickListener {
+
+            val intent = Intent(this, SignUpClient::class.java)
             startActivity(intent)
         }
 
