@@ -24,6 +24,10 @@
         <activity
             android:name=".ui.authentication_forms.signup.SignUpWorker"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.authentication_forms.signup.SignUpClient"
+            android:exported="false" />
         <activity
             android:name=".ui.Splash"
             android:exported="true"

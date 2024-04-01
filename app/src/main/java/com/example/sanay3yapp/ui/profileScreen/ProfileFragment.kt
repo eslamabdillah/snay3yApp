@@ -4,18 +4,63 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.sanay3yapp.databinding.FragmentProfileBinding
+import com.example.sanay3yapp.databinding.FragmentProfileWorkerBinding
+import com.example.sanay3yapp.ui.SessionUser
 
 class ProfileFragment : Fragment() {
-    lateinit var profileBinding: FragmentProfileBinding
+    lateinit var binding: FragmentProfileWorkerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        profileBinding = FragmentProfileBinding.inflate(inflater, container, false)
-        return profileBinding.root
+        binding = FragmentProfileWorkerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        when (SessionUser.currentUserType) {
+            "client" -> {
+                setupProfileClient()
+
+
+            }
+
+            "worker" -> {
+                setupProfileWorker()
+
+
+            }
+
+            else -> {
+
+            }
+        }
+    }
+
+    private fun setupProfileClient() {
+        binding.name.text = SessionUser.client.name
+        binding.email.text = SessionUser.client.email
+        binding.city.text = SessionUser.client.city
+        binding.phone.text = SessionUser.client.phone.toString()
+        binding.idNational.isVisible = false
+        binding.job.isVisible = false
+        binding.exp.isVisible = false
+    }
+
+    private fun setupProfileWorker() {
+        binding.name.text = SessionUser.worker.name
+        binding.email.text = SessionUser.worker.email
+        binding.city.text = SessionUser.worker.city
+        binding.exp.text = SessionUser.worker.exp.toString()
+        binding.job.text = SessionUser.worker.job
+        binding.phone.text = SessionUser.worker.phone.toString()
+        binding.idNational.text = SessionUser.worker.national_id.toString()
+
+
     }
 }
