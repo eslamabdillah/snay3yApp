@@ -15,7 +15,8 @@ data class Worker(
     var exp: Int = 0, // Default value needed
     var day: Int = 0,
     var month: Int = 0,
-    var year: Int = 0
+    var year: Int = 0,
+    var photoUrl: String = ""
 
 // TODO: my_Offers , current_Job , Clients_opinion
 

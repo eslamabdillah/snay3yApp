@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentProfileWorkerBinding
 import com.example.sanay3yapp.ui.SessionUser
 
@@ -60,6 +62,11 @@ class ProfileFragment : Fragment() {
         binding.job.text = SessionUser.worker.job
         binding.phone.text = SessionUser.worker.phone.toString()
         binding.idNational.text = SessionUser.worker.national_id.toString()
+        Glide.with(this)
+            .load(SessionUser.worker.photoUrl)
+            .placeholder(R.drawable.logo) // Optional placeholder
+            .error(R.drawable.logo)
+            .into(binding.photo)
 
 
     }

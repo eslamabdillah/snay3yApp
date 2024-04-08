@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_sign_employee"
+        android:id="@+id/button_sign_worker"
         android:layout_width="175dp"
         android:layout_height="90dp"
 

@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sanay3yapp.databinding.ActivitySignUpWorkerBinding
-import com.example.sanay3yapp.ui.authentication_forms.login.LoginActivity
+import com.example.sanay3yapp.ui.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -69,6 +69,7 @@ class SignUpWorker : AppCompatActivity() {
             //todo validation
             createUserWithEmailPassword()
 
+
         }
     }
 
@@ -80,9 +81,11 @@ class SignUpWorker : AppCompatActivity() {
                 if (task.isSuccessful) {
 
                     worker.id = task.result.user?.uid.toString()
+                    Constants.idForSignUp = worker.id
                     DAO.addNewWorker(worker) {
+
                         Toast.makeText(this, "sucess add", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, LoginActivity::class.java)
+                        val intent = Intent(this, UploadPhotoActivity::class.java)
                         startActivity(intent)
                     }
                 } else {

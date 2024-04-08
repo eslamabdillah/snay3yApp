@@ -1,8 +1,6 @@
 package dataBase.fireStore
 
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -18,7 +16,7 @@ object DAO {
 
 
     fun getAllWorkers(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
-        db.collection("workers_demo")
+        db.collection("workers")
             .get()
             .addOnCompleteListener(onCompleteListener)
 
@@ -88,37 +86,10 @@ object DAO {
         }
     }
 
-    fun getUser(
-        id: String,
-        onSuccessListenerWorker: OnSuccessListener<DocumentSnapshot>,
-        onFailureListenerWorker: OnFailureListener,
-        onSuccessListenerClient: OnSuccessListener<DocumentSnapshot>,
-        onFailureListenerClient: OnFailureListener,
-    ) {
-        db.collection("worker").document(id).get()
-            .addOnSuccessListener { workerDoc ->
-                if (workerDoc.exists()) {
-                    onSuccessListenerWorker
-                } else {
-                    db.collection("clients").document(id).get()
-                        .addOnSuccessListener { clientDoc ->
-                            if (clientDoc.exists()) {
-                                onSuccessListenerClient
-                            } else {
-                                onFailureListenerClient.onFailure(Exception("Document not found in either collection"))
-                            }
+    fun addPhotoUrl(photoUrl: String, id: String, onCompleteListener: OnCompleteListener<Void>) {
+        var userRef = db.collection("workers").document(id)
 
-                        }
-                        .addOnFailureListener {
-                            onFailureListenerClient
-                        }
-                }
-            }
-
-            .addOnFailureListener {
-                onFailureListenerWorker
-            }
-
+        userRef.update("photoUrl", photoUrl).addOnCompleteListener(onCompleteListener)
     }
 
 

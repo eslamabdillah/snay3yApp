@@ -15,7 +15,7 @@ class Choose_login_signupActivity : AppCompatActivity() {
         setContentView(choose_login_signup.root)
 
 
-        choose_login_signup.buttonSignEmployee.setOnClickListener {
+        choose_login_signup.buttonSignWorker.setOnClickListener {
 
             val intent = Intent(this, SignUpWorker::class.java)
             startActivity(intent)

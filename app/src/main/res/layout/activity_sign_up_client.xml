@@ -50,7 +50,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/edittext_background"
         android:hint="رقم الموبيل"
-        android:inputType="text"
+        android:inputType="number"
         android:padding="10dp"
         android:textColorHint="@color/colorSecondary" />
 

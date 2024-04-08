@@ -29,14 +29,19 @@
             android:name=".ui.authentication_forms.signup.SignUpClient"
             android:exported="false" />
         <activity
+            android:name=".ui.authentication_forms.signup.UploadPhotoActivity"
+            android:exported="false" />
+
+
+        <activity
             android:name=".ui.Splash"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.MainActivity"

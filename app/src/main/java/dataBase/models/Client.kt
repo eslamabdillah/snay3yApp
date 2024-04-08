@@ -12,5 +12,6 @@ data class Client(
     var month: Int = 0,
     var year: Int = 0,
     var type: String = "client",
+    var myJobs: MutableList<Job>
 
     )
