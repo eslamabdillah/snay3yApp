@@ -16,15 +16,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:padding="5dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_offer" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="offers_here"
-        android:textSize="32sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:listitem="@layout/item_job" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

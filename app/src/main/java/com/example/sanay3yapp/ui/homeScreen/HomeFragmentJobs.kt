@@ -16,7 +16,7 @@ class HomeFragmentJobs : Fragment() {
 
     private lateinit var offerBinding: FragmentHomeJobsBinding
     private lateinit var adapter: JobsAdapter
-    private var offersList = mutableListOf<Job>()
+    private var jobList = mutableListOf<Job>()
 
 
     override fun onCreateView(
@@ -40,8 +40,8 @@ class HomeFragmentJobs : Fragment() {
             if (task.isSuccessful) {
                 val documents = task.result?.documents
                 documents?.forEach() { document ->
-                    document.toObject<Job>()?.let { offersList.add(it) }
-                    Log.d("firestoreJob", "${offersList[0].name}")
+                    document.toObject<Job>()?.let { jobList.add(it) }
+                    Log.d("firestoreJob", "${jobList[0].name}")
 
                 }
 
@@ -66,7 +66,7 @@ class HomeFragmentJobs : Fragment() {
     }
 
     private fun changeListAdapter() {
-        adapter.bindList(offersList)
+        adapter.bindList(jobList)
     }
 
     fun loadChildFragment(childFragment: Fragment) {
