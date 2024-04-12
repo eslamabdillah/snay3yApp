@@ -2,10 +2,12 @@ package dataBase.fireStore
 
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dataBase.models.Client
+import dataBase.models.Job
 import dataBase.models.Worker
 
 
@@ -24,7 +26,7 @@ object DAO {
 
 
     fun getAllJobs(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
-        db.collection("jobs_demo")
+        db.collection("jobs")
             .get()
             .addOnCompleteListener(onCompleteListener)
 
@@ -50,7 +52,7 @@ object DAO {
     }
 
     fun getJob(jobId: String, onCompleteListener: OnCompleteListener<DocumentSnapshot>) {
-        val docRef = db.collection("jobs_demo").document(jobId).get()
+        val docRef = db.collection("jobs").document(jobId).get()
             .addOnCompleteListener(onCompleteListener)
     }
 
@@ -90,6 +92,31 @@ object DAO {
         var userRef = db.collection("workers").document(id)
 
         userRef.update("photoUrl", photoUrl).addOnCompleteListener(onCompleteListener)
+    }
+
+    fun addJobAndUpdateClient(
+        newJob: Job,
+        clientId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+
+
+        val jobsCollectionRef = db.collection("jobs").document()
+
+        newJob.id = jobsCollectionRef.id
+
+
+        jobsCollectionRef.set(newJob).addOnSuccessListener { jobDocumentRef ->
+
+            val clientDocRef = db.collection("clients").document(clientId)
+
+            clientDocRef.update("myJobs", FieldValue.arrayUnion(newJob.id))
+                .addOnCompleteListener(onCompleteListener)
+
+        }.addOnFailureListener { exception ->
+
+
+        }
     }
 
 

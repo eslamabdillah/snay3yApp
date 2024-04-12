@@ -21,6 +21,7 @@
                 android:hint="ادخل اسم الوظيفة "
                 android:maxLines="1"
                 android:textSize="28sp"
+                android:inputType="text"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -31,6 +32,7 @@
                 android:gravity="top|start"
                 android:hint="ادخل تفاصيل الوظيفة هنا"
                 android:maxLines="10"
+                android:inputType="text"
                 android:scrollbars="vertical"
                 android:textSize="26sp"
                 app:layout_constraintTop_toBottomOf="@id/job_name" />
@@ -58,6 +60,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
+                    android:inputType="number"
+
                     android:hint="ادخل الميزانية" />
             </LinearLayout>
 
@@ -92,6 +96,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:inputType="number"
+
                 android:backgroundTint="@color/colorSecondary"
                 android:text="اضافة الوظيفة"
                 android:textSize="32sp"

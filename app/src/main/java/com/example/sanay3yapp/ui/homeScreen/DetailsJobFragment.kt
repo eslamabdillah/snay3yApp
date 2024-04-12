@@ -1,12 +1,15 @@
 package com.example.sanay3yapp.ui.homeScreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentDetailsJobBinding
+import com.example.sanay3yapp.ui.SessionUser
 import com.google.firebase.firestore.toObject
 import dataBase.fireStore.DAO
 import dataBase.models.Job
@@ -46,14 +49,22 @@ class DetailsJobFragment : Fragment() {
 
         loadJob()
         loadOffers()
+        setupView()
         setupAdapter()
-        binding.giveOffer.setOnClickListener({
+        binding.mainJob.giveOffer.setOnClickListener({
             bottomSheet = FragmentGiveOffer()
             bottomSheet.show(childFragmentManager, "give offer")
         })
 
 
     }
+
+    private fun setupView() {
+        if (SessionUser.currentUserType == "client") {
+            binding.mainJob.giveOffer.isVisible = false
+        }
+    }
+
 
     private fun setupAdapter() {
         adapter = OffersAdapter(null)
@@ -88,13 +99,21 @@ class DetailsJobFragment : Fragment() {
             DAO.getJob(jobId) { task ->
                 if (task.isSuccessful) {
                     val document = task.result?.toObject<Job>()
-                    job.name = document?.name!!
-                    job.id = document.id
-                    job.details = document.details
-                    job.cost = document.cost
-                    job.duration = document.duration
+                    if (document != null) {
+                        binding.mainJob.jobName.text = document.name
+                        binding.mainJob.details.text = document.details
+                        binding.mainJob.cost.text = document.cost.toString()
+                        binding.mainJob.duration.text = document.duration.toString()
+                    } else {
+                        // Handle the case where the document is null
+                        // For example, logging an error or providing a default value
+                        Log.e("loadJob", "Document was null")
+                        job.name =
+                            "Default Name"  // Provide a default value or continue with an appropriate action
+                    }
                 } else {
-
+                    // Handle the case where task is not successful
+                    Log.e("loadJob", "Failed to load job")
                 }
             }
         }
