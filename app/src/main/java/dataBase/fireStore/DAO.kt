@@ -7,6 +7,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dataBase.models.Client
+import dataBase.models.ClientOpinion
 import dataBase.models.Job
 import dataBase.models.Offer
 import dataBase.models.Worker
@@ -14,9 +15,6 @@ import dataBase.models.Worker
 
 object DAO {
     private val db = Firebase.firestore
-    private val documentId = "Sns0qKZQMYp1CKGFR44t"
-    private val docRef = db.collection("workers_demo").document(documentId)
-
 
     fun getAllWorkers(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
         db.collection("workers")
@@ -165,6 +163,48 @@ object DAO {
         }.addOnFailureListener { exception ->
             // If the initial set fails, propagate the failure
         }
+    }
+
+    fun getClientOpinionForWorker(
+        workerId: String,
+        onCompleteListener: OnCompleteListener<QuerySnapshot>
+    ) {
+
+        db.collection("workers")
+            .document(workerId)
+            .collection("clientsOpinions")
+            .get()
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun setClientOpinionForWorker(
+        workerId: String,
+        jobId: String,
+        newOpinion: ClientOpinion,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val documentWorkerRef = db.collection("workers")
+            .document(workerId)
+            .collection("clientsOpinions")
+            .document()
+
+        var docId = documentWorkerRef.id
+
+
+        documentWorkerRef.set(newOpinion)
+            .addOnSuccessListener {
+                val documentJobRef = db.collection("jobs")
+                    .document(jobId)
+                    .collection("clientOpinion")
+                    .document(docId)
+
+
+                documentJobRef.set(newOpinion)
+                    .addOnCompleteListener(onCompleteListener)
+            }
+
+
     }
 
 

@@ -17,7 +17,8 @@ data class Worker(
     var month: Int = 0,
     var year: Int = 0,
     var photoUrl: String = "",
-    var myOffers: MutableList<Offer>? = null
+    var myOffers: MutableList<Offer>? = null,
+    var rate: Float = 0f
 
 // TODO: my_Offers , current_Job , Clients_opinion
 
