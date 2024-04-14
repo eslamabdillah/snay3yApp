@@ -18,7 +18,6 @@ import dataBase.models.Offer
 class DetailsJobFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsJobBinding
-    lateinit var bottomSheet: FragmentGiveOffer
     private lateinit var adapter: OffersAdapter
     private var jobId: String? = null
     private var job = Job()
@@ -52,7 +51,7 @@ class DetailsJobFragment : Fragment() {
         setupView()
         setupAdapter()
         binding.mainJob.giveOffer.setOnClickListener({
-            bottomSheet = FragmentGiveOffer()
+            val bottomSheet = FragmentGiveOffer.newInstance(jobId!!)
             bottomSheet.show(childFragmentManager, "give offer")
         })
 
@@ -94,6 +93,7 @@ class DetailsJobFragment : Fragment() {
         }
     }
 
+
     private fun loadJob() {
         jobId?.let { jobId ->
             DAO.getJob(jobId) { task ->
@@ -104,6 +104,7 @@ class DetailsJobFragment : Fragment() {
                         binding.mainJob.details.text = document.details
                         binding.mainJob.cost.text = document.cost.toString()
                         binding.mainJob.duration.text = document.duration.toString()
+
                     } else {
                         // Handle the case where the document is null
                         // For example, logging an error or providing a default value

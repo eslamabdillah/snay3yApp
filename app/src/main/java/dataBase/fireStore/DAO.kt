@@ -8,6 +8,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dataBase.models.Client
 import dataBase.models.Job
+import dataBase.models.Offer
 import dataBase.models.Worker
 
 
@@ -57,9 +58,20 @@ object DAO {
     }
 
     fun getOffersforJob(jobId: String, onCompleteListener: OnCompleteListener<QuerySnapshot>) {
-        val docRef = db.collection("jobs_demo")
+        val docRef = db.collection("jobs")
             .document(jobId)
-            .collection("workerOffers")
+            .collection("workersOffers")
+            .get()
+            .addOnCompleteListener(onCompleteListener)
+    }
+
+    fun getOffersforWorker(
+        workerId: String,
+        onCompleteListener: OnCompleteListener<QuerySnapshot>
+    ) {
+        val docRef = db.collection("workers")
+            .document(workerId)
+            .collection("myOffers")
             .get()
             .addOnCompleteListener(onCompleteListener)
     }
@@ -116,6 +128,42 @@ object DAO {
         }.addOnFailureListener { exception ->
 
 
+        }
+    }
+
+    fun addOfferInJob(
+        jobId: String,
+        newOffer: Offer,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        // Reference to the new document in the workersOffers subcollection of the job
+        val offerDocRef = db.collection("jobs")
+            .document(jobId)
+            .collection("workersOffers")
+            .document()
+
+        // Generate and assign a new Offer ID
+        val offerId = offerDocRef.id
+        newOffer.id = offerId
+
+        // Set the new offer in the workersOffers subcollection
+        offerDocRef.set(newOffer).addOnSuccessListener {
+            // On success, add the same offer under the worker's myOffers subcollection
+            val workerOfferRef = db.collection("workers")
+                .document(newOffer.workerId)
+                .collection("myOffers")
+                .document(offerId)
+
+            workerOfferRef.set(newOffer).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+
+                } else {
+                    task.exception?.let {
+                    }
+                }
+            }
+        }.addOnFailureListener { exception ->
+            // If the initial set fails, propagate the failure
         }
     }
 

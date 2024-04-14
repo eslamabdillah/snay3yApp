@@ -10,4 +10,7 @@ data class Offer(
     var details: String = "",
     var cost: Int = 0,
     var duration: Int = 0,
+    var workerId: String = "",
+    var jobId: String = ""
+
 ) : Parcelable
