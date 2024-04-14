@@ -52,6 +52,9 @@ class ProfileFragment : Fragment() {
         binding.idNational.isVisible = false
         binding.job.isVisible = false
         binding.exp.isVisible = false
+        binding.clientsOpinions.setOnClickListener {
+            navigateToClientSOpinions(FragmentClientsOpinions())
+        }
     }
 
     private fun setupProfileWorker() {
@@ -68,6 +71,17 @@ class ProfileFragment : Fragment() {
             .error(R.drawable.logo)
             .into(binding.workerImage)
 
+        binding.ratingBar.rating = SessionUser.worker.rate
+        binding.clientsOpinions.setOnClickListener {
+            navigateToClientSOpinions(FragmentClientsOpinions())
+        }
 
+
+    }
+
+    fun navigateToClientSOpinions(childFragment: Fragment) {
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.profile_container, childFragment)
+        transaction.commit()
     }
 }
