@@ -77,11 +77,4 @@ class HomeFragmentJobs : Fragment() {
     }
 
 
-    fun newInstance(taskId: String) = HomeFragmentJobs().apply {
-        arguments = Bundle().apply {
-            putString("jobID", taskId)
-        }
-    }
-
-
 }

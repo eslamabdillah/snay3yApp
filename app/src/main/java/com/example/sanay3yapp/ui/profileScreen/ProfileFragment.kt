@@ -66,7 +66,7 @@ class ProfileFragment : Fragment() {
             .load(SessionUser.worker.photoUrl)
             .placeholder(R.drawable.logo) // Optional placeholder
             .error(R.drawable.logo)
-            .into(binding.photo)
+            .into(binding.workerImage)
 
 
     }
