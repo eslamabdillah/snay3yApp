@@ -1,5 +1,7 @@
 package com.example.sanay3yapp.ui.homeScreen
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +41,14 @@ class DetailsOfferOfWorkerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.detailsOffer.text = currectOffer?.details
+
+        binding.call.setOnClickListener {
+            val contactNumber = "01033242661"
+            val dialIntent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$contactNumber")
+            }
+            startActivity(dialIntent)
+        }
 
     }
 }

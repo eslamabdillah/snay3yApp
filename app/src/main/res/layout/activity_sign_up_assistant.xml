@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background3"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_background"
+        android:hint="user@gmail.com"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/colorSecondary" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_background"
+        android:hint="**********"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColorHint="@color/colorSecondary" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_background"
+        android:hint="الاسم : اسلام احمد "
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/colorSecondary" />
+
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_background"
+        android:hint="رقم الموبيل"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/colorSecondary" />
+
+    <EditText
+        android:id="@+id/daily_rent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_background"
+        android:hint="قيمة اليومية بالجنيه : مثال 150"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/colorSecondary" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="الشغلانة"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinner_jobs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_assistant"
+        android:textDirection="rtl" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="المكان"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinner_Places"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_places"
+        android:textDirection="rtl" />
+
+
+    <Button
+        android:id="@+id/create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/colorSecondary"
+        android:paddingHorizontal="22dp"
+        android:text="انشاء حساب" />
+
+
+</LinearLayout>
+

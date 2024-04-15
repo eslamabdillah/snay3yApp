@@ -2,5 +2,25 @@
     <string name="app_name">Sanay3yAPP</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Notifications</string>\
+
+    <string-array name="spinner_places">
+        <item>حلوان</item>
+        <item>القاهرة</item>
+        <item>الجيزة</item>
+        <item>الدقى</item>
+    </string-array>
+
+    <string-array name="spinner_jobs">
+        <item>كهربائى</item>
+        <item>سباك</item>
+        <item>نقاش</item>
+        <item>بنه</item>
+    </string-array>
+
+    <string-array name="spinner_assistant">
+        <item>مساعد</item>
+        <item>فواعلى</item>
+    </string-array>
 </resources>
+

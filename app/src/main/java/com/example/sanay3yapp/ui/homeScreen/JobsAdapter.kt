@@ -12,23 +12,23 @@ import dataBase.models.Job
 class JobsAdapter(var offerList: MutableList<Job>?) :
     RecyclerView.Adapter<JobsAdapter.OfferViewHolder>() {
     class OfferViewHolder(view: View) : ViewHolder(view) {
-        private val name: TextView = view.findViewById(R.id.name)
+        private val name: TextView = view.findViewById(R.id.job_name)
         private val details: TextView = view.findViewById(R.id.details)
         private val cost: TextView = view.findViewById(R.id.cost)
         private val duration: TextView = view.findViewById(R.id.duration)
 
-        fun bindData(offer: Job) {
-            name.text = offer.name
-            details.text = offer.details
-            cost.text = offer.cost.toString()
-            duration.text = offer.duration.toString()
+        fun bindData(currentJob: Job) {
+            name.text = currentJob.name
+            details.text = currentJob.details
+            cost.text = currentJob.cost.toString()
+            duration.text = currentJob.duration.toString()
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferViewHolder {
         val offerItem =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_offer, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_job, parent, false)
         return OfferViewHolder(offerItem)
     }
 

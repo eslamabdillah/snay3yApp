@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_content, HomeFragmentWorker())
+            .replace(R.id.fragment_content, HomeFragmentJobs())
             .commit()
 
         homeFragmentBinding!!.workers.setOnClickListener {

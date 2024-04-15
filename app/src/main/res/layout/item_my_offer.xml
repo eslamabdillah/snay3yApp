@@ -15,7 +15,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/photo"
+            android:id="@+id/worker_photo"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -24,34 +24,35 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/name_worker_item"
+            android:id="@+id/worker_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:text="اسلام احمد"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/photo"
-            app:layout_constraintEnd_toStartOf="@id/photo"
-            app:layout_constraintTop_toTopOf="@id/photo" />
+            app:layout_constraintBottom_toBottomOf="@id/worker_photo"
+            app:layout_constraintEnd_toStartOf="@id/worker_photo"
+            app:layout_constraintTop_toTopOf="@id/worker_photo" />
 
         <TextView
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="ا12 / 10 / 2024"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/photo"
-            app:layout_constraintEnd_toStartOf="@id/photo"
+            app:layout_constraintBottom_toBottomOf="@id/worker_photo"
+            app:layout_constraintEnd_toStartOf="@id/worker_photo"
             app:layout_constraintTop_toTopOf="@id/name_worker_item" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/offer_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="2"
             android:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
             android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@id/photo" />
+            app:layout_constraintTop_toBottomOf="@id/worker_photo" />
 
         <View
             android:id="@+id/line"
@@ -61,11 +62,11 @@
             android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content"
+            app:layout_constraintTop_toBottomOf="@id/offer_details"
             app:layout_constraintWidth_percent="0.8" />
 
         <TextView
-            android:id="@+id/cost"
+            android:id="@+id/offer_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -75,26 +76,27 @@
             app:layout_constraintTop_toBottomOf="@id/line" />
 
         <TextView
-            android:id="@+id/duration"
+            android:id="@+id/offer_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="المدة : 10 ايام"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@id/cost"
-            app:layout_constraintTop_toBottomOf="@id/cost"
+            app:layout_constraintEnd_toEndOf="@id/offer_cost"
+            app:layout_constraintTop_toBottomOf="@id/offer_cost"
 
             />
 
         <Button
+            android:id="@+id/readMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorSecondary"
-            android:text="العروض : 0"
-            app:layout_constraintBottom_toBottomOf="@id/duration"
-            app:layout_constraintEnd_toStartOf="@id/cost"
+            android:text="روية المزيد"
+            app:layout_constraintBottom_toBottomOf="@id/offer_duration"
+            app:layout_constraintEnd_toStartOf="@id/offer_cost"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cost" />
+            app:layout_constraintTop_toTopOf="@id/offer_cost" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
