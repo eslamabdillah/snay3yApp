@@ -84,7 +84,11 @@ class UploadPhotoActivity : AppCompatActivity() {
             // Get the download URL
             taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { downloadUri ->
                 // Here you get the download URL of the uploaded photo
-                DAO.addPhotoUrl(downloadUri.toString(), Constants.idForSignUp) {
+                DAO.addPhotoUrl(
+                    Constants.workerType,
+                    downloadUri.toString(),
+                    Constants.idForSignUp
+                ) {
 
                     if (it.isSuccessful) {
                         Toast.makeText(this, "photo upload Done", Toast.LENGTH_LONG).show()

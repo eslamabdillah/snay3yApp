@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background3"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="12dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background3"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp">
 
-        >
-
-
-        <EditText
+    <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,16 +42,6 @@
         android:padding="10dp"
         android:textColorHint="@color/colorSecondary" />
 
-    <EditText
-        android:id="@+id/id_national"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/edittext_background"
-        android:hint="الرقم القومى "
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColorHint="@color/colorSecondary" />
 
     <EditText
         android:id="@+id/phone"
@@ -68,15 +55,16 @@
         android:textColorHint="@color/colorSecondary" />
 
     <EditText
-        android:id="@+id/exp"
+        android:id="@+id/daily_rent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/edittext_background"
-        android:hint="سنين الخبرة"
-        android:inputType="number"
+        android:hint="قيمة اليومية بالجنيه : مثال 150"
+        android:inputType="text"
         android:padding="10dp"
         android:textColorHint="@color/colorSecondary" />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -90,7 +78,7 @@
         android:id="@+id/spinner_jobs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/spinner_jobs"
+        android:entries="@array/spinner_assistant"
         android:textDirection="rtl" />
 
     <TextView
@@ -108,22 +96,6 @@
         android:entries="@array/spinner_places"
         android:textDirection="rtl" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="تاريخ الميلاد"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/birthdayButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:backgroundTint="@color/white"
-        android:text="25/1/2011"
-        android:textColor="@color/colorPrimary" />
 
     <Button
         android:id="@+id/create_account"
@@ -136,5 +108,5 @@
         android:text="انشاء حساب" />
 
 
-    </LinearLayout>
+</LinearLayout>
 

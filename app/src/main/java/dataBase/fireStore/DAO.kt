@@ -8,6 +8,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dataBase.models.Client
 import dataBase.models.ClientOpinion
+import dataBase.models.DailyWorker
 import dataBase.models.Job
 import dataBase.models.Offer
 import dataBase.models.Worker
@@ -45,7 +46,7 @@ object DAO {
     }
 
     fun getAllDailyWorkers(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
-        db.collection("daily_workers_demo")
+        db.collection("dailyWorkers")
             .get()
             .addOnCompleteListener(onCompleteListener)
     }
@@ -80,8 +81,25 @@ object DAO {
             throw IllegalArgumentException("Invalid ID for the worker.")
         } else {
             // Proceed with setting the document in Firestore
-            db.collection("workers").document(newWorker.id)
+            db.collection("workers")
+                .document(newWorker.id)
                 .set(newWorker)
+                .addOnCompleteListener(onCompleteListener)
+        }
+    }
+
+    fun addNewDailyWorker(
+        newDailyWorker: DailyWorker,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        // Check if the worker has a valid ID
+        if (newDailyWorker.id.isNullOrEmpty()) {
+            throw IllegalArgumentException("Invalid ID for the worker.")
+        } else {
+            // Proceed with setting the document in Firestore
+            db.collection("dailyWorkers")
+                .document(newDailyWorker.id)
+                .set(newDailyWorker)
                 .addOnCompleteListener(onCompleteListener)
         }
     }
@@ -92,16 +110,27 @@ object DAO {
             throw IllegalArgumentException("Invalid ID for the worker.")
         } else {
             // Proceed with setting the document in Firestore
-            db.collection("clients").document(newClient.id)
+            db.collection("clients")
+                .document(newClient.id)
                 .set(newClient)
                 .addOnCompleteListener(onCompleteListener)
         }
     }
 
-    fun addPhotoUrl(photoUrl: String, id: String, onCompleteListener: OnCompleteListener<Void>) {
-        var userRef = db.collection("workers").document(id)
+    fun addPhotoUrl(
+        workerType: String,
+        photoUrl: String,
+        id: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        if (workerType == "worker") {
+            var userRef = db.collection("workers").document(id)
+            userRef.update("photoUrl", photoUrl).addOnCompleteListener(onCompleteListener)
+        } else {
+            var userRef = db.collection("dailyWorkers").document(id)
+            userRef.update("photoUrl", photoUrl).addOnCompleteListener(onCompleteListener)
+        }
 
-        userRef.update("photoUrl", photoUrl).addOnCompleteListener(onCompleteListener)
     }
 
     fun addJobAndUpdateClient(

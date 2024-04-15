@@ -28,6 +28,10 @@
         <activity
             android:name=".ui.authentication_forms.signup.SignUpClient"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.authentication_forms.signup.SignUpDailyWorker"
+            android:exported="false" />
         <activity
             android:name=".ui.authentication_forms.signup.UploadPhotoActivity"
             android:exported="false" />

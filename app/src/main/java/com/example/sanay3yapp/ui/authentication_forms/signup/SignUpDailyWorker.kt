@@ -1,36 +1,32 @@
 package com.example.sanay3yapp.ui.authentication_forms.signup
 
-import android.app.DatePickerDialog
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sanay3yapp.databinding.ActivitySignUpWorkerBinding
+import com.example.sanay3yapp.databinding.ActivitySignUpAssistantBinding
 import com.example.sanay3yapp.ui.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dataBase.fireStore.DAO
-import dataBase.models.Worker
-import java.util.Calendar
+import dataBase.models.DailyWorker
 
-class SignUpWorker : AppCompatActivity() {
-    lateinit var binding: ActivitySignUpWorkerBinding
+class SignUpDailyWorker : AppCompatActivity() {
+    lateinit var binding: ActivitySignUpAssistantBinding
     private lateinit var auth: FirebaseAuth
 
-    var worker = Worker()
+    var daily_worker = DailyWorker()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignUpWorkerBinding.inflate(layoutInflater)
+        binding = ActivitySignUpAssistantBinding.inflate(layoutInflater)
         auth = Firebase.auth
         setContentView(binding.root)
 
-        binding.birthdayButton.setOnClickListener {
-            showDatePickerDialog()
-        }
 
         binding.spinnerPlaces.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -39,7 +35,7 @@ class SignUpWorker : AppCompatActivity() {
                 postion: Int,
                 id: Long
             ) {
-                worker.city = parent?.getItemAtPosition(postion).toString()
+                daily_worker.city = parent?.getItemAtPosition(postion).toString()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -56,7 +52,7 @@ class SignUpWorker : AppCompatActivity() {
                 postion: Int,
                 id: Long
             ) {
-                worker.job = parent?.getItemAtPosition(postion).toString()
+                daily_worker.job = parent?.getItemAtPosition(postion).toString()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -76,14 +72,14 @@ class SignUpWorker : AppCompatActivity() {
 
     private fun createUserWithEmailPassword() {
         validation()
-        auth.createUserWithEmailAndPassword(worker.email, worker.passWord)
+        auth.createUserWithEmailAndPassword(daily_worker.email, daily_worker.passWord)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
 
-                    worker.id = task.result.user?.uid.toString()
-                    Constants.idForSignUp = worker.id
-                    Constants.workerType = "worker"
-                    DAO.addNewWorker(worker) {
+                    daily_worker.id = task.result.user?.uid.toString()
+                    Constants.idForSignUp = daily_worker.id
+                    Constants.workerType = "dailyWorker"
+                    DAO.addNewDailyWorker(daily_worker) {
 
                         Toast.makeText(this, "sucess add", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, UploadPhotoActivity::class.java)
@@ -98,39 +94,12 @@ class SignUpWorker : AppCompatActivity() {
 
 
     private fun validation() {
-        worker.email = binding.email.text.toString()
-        worker.passWord = binding.password.text.toString()
-        worker.name = binding.name.text.toString()
-        worker.national_id = binding.idNational.text.toString().toLong()
-        worker.phone = binding.phone.text.toString().toLong()
-        worker.exp = binding.exp.text.toString().toInt()
+        daily_worker.email = binding.email.text.toString()
+        daily_worker.passWord = binding.password.text.toString()
+        daily_worker.name = binding.name.text.toString()
+        daily_worker.phone = binding.phone.text.toString().toLong()
+        daily_worker.daily_rent = binding.dailyRent.text.toString().toInt()
     }
 
-    private fun showDatePickerDialog() {
-        // Create an instance of the calendar
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR) // Current year
-        val month = calendar.get(Calendar.MONTH) // Current month
-        val day = calendar.get(Calendar.DAY_OF_MONTH) // Current day
 
-        // Create the DatePickerDialog instance
-        val dpd = DatePickerDialog(
-            this,
-            DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-                // Handle the selected date here
-                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                worker.day = selectedDay
-                worker.month = selectedMonth
-                worker.year = selectedYear
-                worker.age = Calendar.YEAR - year
-                binding.birthdayButton.text = selectedDate
-            },
-            year,
-            month,
-            day
-        )
-
-        // Show the DatePickerDialog
-        dpd.show()
-    }
 }
