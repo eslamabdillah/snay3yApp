@@ -14,7 +14,7 @@ import dataBase.models.DailyWorker
 class DailyFragment : Fragment() {
     lateinit var dailyBinding: FragmentDailyBinding
     lateinit var dailyAdapter: DailyAdapter
-    var dailyWorkerList = mutableListOf<DailyWorker>()
+    var assistantsList = mutableListOf<DailyWorker>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,7 +36,7 @@ class DailyFragment : Fragment() {
             if (task.isSuccessful) {
                 val documents = task.result.documents
                 documents.forEach() { document ->
-                    document.toObject<DailyWorker>()?.let { dailyWorkerList.add(it) }
+                    document.toObject<DailyWorker>()?.let { assistantsList.add(it) }
 
                 }
 
@@ -54,6 +54,6 @@ class DailyFragment : Fragment() {
     }
 
     fun changeDailyAdapterList() {
-        dailyAdapter.bindNewList(dailyWorkerList)
+        dailyAdapter.bindNewList(assistantsList)
     }
 }

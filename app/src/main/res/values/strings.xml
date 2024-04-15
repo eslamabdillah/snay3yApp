@@ -17,5 +17,10 @@
         <item>نقاش</item>
         <item>بنه</item>
     </string-array>
+
+    <string-array name="spinner_assistant">
+        <item>مساعد</item>
+        <item>فواعلى</item>
+    </string-array>
 </resources>
 

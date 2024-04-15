@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sanay3yapp.databinding.ActivityChooseLoginSignupBinding
 import com.example.sanay3yapp.ui.authentication_forms.signup.SignUpClient
+import com.example.sanay3yapp.ui.authentication_forms.signup.SignUpDailyWorker
 import com.example.sanay3yapp.ui.authentication_forms.signup.SignUpWorker
 
 class Choose_login_signupActivity : AppCompatActivity() {
@@ -25,6 +26,12 @@ class Choose_login_signupActivity : AppCompatActivity() {
 
             val intent = Intent(this, SignUpClient::class.java)
             startActivity(intent)
+        }
+
+        choose_login_signup.btnAssistant.setOnClickListener {
+            val intent = Intent(this, SignUpDailyWorker::class.java)
+            startActivity(intent)
+
         }
 
 
