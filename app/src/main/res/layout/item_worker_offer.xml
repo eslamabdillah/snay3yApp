@@ -15,7 +15,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/worker_photo"
+            android:id="@+id/worker_image"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -30,9 +30,9 @@
             android:layout_marginBottom="5dp"
             android:text="اسلام احمد"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/worker_photo"
-            app:layout_constraintEnd_toStartOf="@id/worker_photo"
-            app:layout_constraintTop_toTopOf="@id/worker_photo" />
+            app:layout_constraintBottom_toBottomOf="@id/worker_image"
+            app:layout_constraintEnd_toStartOf="@id/worker_image"
+            app:layout_constraintTop_toTopOf="@id/worker_image" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,8 +40,8 @@
             android:layout_marginTop="5dp"
             android:text="ا12 / 10 / 2024"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/worker_photo"
-            app:layout_constraintEnd_toStartOf="@id/worker_photo"
+            app:layout_constraintBottom_toBottomOf="@id/worker_image"
+            app:layout_constraintEnd_toStartOf="@id/worker_image"
             app:layout_constraintTop_toTopOf="@id/name_worker_item" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:lines="2"
             android:text="باذن الله معاك الاسطي محمد يخلصلك الشقة دي فى اتنين كلام وباحسن سعر امن شاء الله"
             android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@id/worker_photo" />
+            app:layout_constraintTop_toBottomOf="@id/worker_image" />
 
         <View
             android:id="@+id/line"

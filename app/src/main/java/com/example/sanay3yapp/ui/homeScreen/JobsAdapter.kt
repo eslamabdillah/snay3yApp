@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.sanay3yapp.R
+import com.example.sanay3yapp.ui.StatesJob
 import dataBase.models.Job
 
 class JobsAdapter(var offerList: MutableList<Job>?) :
@@ -45,10 +46,11 @@ class JobsAdapter(var offerList: MutableList<Job>?) :
             }
         }
 
+
     }
 
     fun bindList(newList: MutableList<Job>) {
-        offerList = newList
+        offerList = newList.filter { it.state == StatesJob.NEW }.toMutableList()
         notifyDataSetChanged()
     }
 
