@@ -69,7 +69,7 @@ class DetailsJobFragment : Fragment() {
         adapter = OffersAdapter(null)
         binding.recyclerViewOffers.adapter = adapter
         adapter.listenenr = OffersAdapter.OnTimeClickListener { offerObject ->
-            val detailsFragment = DetailsOfferOfWorkerFragment.newInstance(offerObject)
+            val detailsFragment = DetailsOfferOfWorkerFragment.newInstance(offerObject, job)
             loadChildFragment(detailsFragment)
         }
 
@@ -100,6 +100,7 @@ class DetailsJobFragment : Fragment() {
                 if (task.isSuccessful) {
                     val document = task.result?.toObject<Job>()
                     if (document != null) {
+                        job = document
                         binding.mainJob.jobName.text = document.name
                         binding.mainJob.details.text = document.details
                         binding.mainJob.cost.text = document.cost.toString()

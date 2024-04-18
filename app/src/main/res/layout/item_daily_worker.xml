@@ -13,47 +13,69 @@
         android:layout_height="wrap_content"
         android:padding="15dp">
 
-        <ImageView
-            android:id="@+id/worker_photo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/daily_worker_photo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/logo"
-            android:layout_margin="12dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/CircularImageView"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="عبدالرحمن راشد"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/worker_photo"
-            app:layout_constraintEnd_toStartOf="@id/worker_photo"
-            app:layout_constraintTop_toTopOf="@id/worker_photo" />
+            android:textSize="32sp"
+            app:layout_constraintBottom_toTopOf="@id/rate_daily_worker"
+            app:layout_constraintEnd_toStartOf="@id/daily_worker_photo"
+            app:layout_constraintTop_toTopOf="@id/daily_worker_photo" />
+
+        <RatingBar
+            android:id="@+id/rate_daily_worker"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:numStars="5"
+            android:rating="4.5"
+            android:stepSize="0.1"
+            app:layout_constraintBottom_toBottomOf="@id/daily_worker_photo"
+            app:layout_constraintEnd_toStartOf="@id/daily_worker_photo"
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
 
         <TextView
             android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:text="المكان : الجيزة"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@id/worker_photo"
-            app:layout_constraintTop_toBottomOf="@id/worker_photo" />
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@id/daily_worker_photo"
+            app:layout_constraintTop_toBottomOf="@id/daily_worker_photo" />
+
+        <TextView
+            android:id="@+id/job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الشغلانة : فواعلى"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@id/daily_worker_photo"
+            app:layout_constraintTop_toBottomOf="@id/place" />
 
         <TextView
             android:id="@+id/startFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:text="اليومية تبدأ من : "
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@id/worker_photo"
-            app:layout_constraintTop_toBottomOf="@id/place" />
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@id/daily_worker_photo"
+            app:layout_constraintTop_toBottomOf="@id/job" />
 
         <TextView
             android:id="@+id/salary"
@@ -61,9 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:text="200 جنيه"
-            android:textSize="24sp"
+            android:textSize="28sp"
             app:layout_constraintEnd_toStartOf="@id/startFrom"
-            app:layout_constraintTop_toBottomOf="@id/place" />
+            app:layout_constraintTop_toBottomOf="@id/job" />
 
         <Button
             android:id="@+id/call"
@@ -88,6 +110,8 @@
             app:layout_constraintEnd_toEndOf="@id/call"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/salary" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

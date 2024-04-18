@@ -84,4 +84,6 @@ class ProfileFragment : Fragment() {
         transaction.replace(R.id.profile_container, childFragment)
         transaction.commit()
     }
+
+
 }

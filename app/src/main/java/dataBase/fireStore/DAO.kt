@@ -1,5 +1,7 @@
 package dataBase.fireStore
 
+import com.example.sanay3yapp.ui.StatesJob
+import com.example.sanay3yapp.ui.UserTypes
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -73,6 +75,19 @@ object DAO {
             .collection("myOffers")
             .get()
             .addOnCompleteListener(onCompleteListener)
+    }
+
+    fun getSelectedOffer(
+        jobId: String,
+        offerId: String,
+        onCompleteListener: OnCompleteListener<DocumentSnapshot>
+    ) {
+        val offerRef = db.collection("jobs")
+            .document(jobId)
+            .collection("workersOffers")
+            .document(offerId)
+            .get().addOnCompleteListener(onCompleteListener)
+
     }
 
     fun addNewWorker(newWorker: Worker, onCompleteListener: OnCompleteListener<Void>) {
@@ -234,6 +249,104 @@ object DAO {
             }
 
 
+    }
+
+
+    //confirm JOB
+
+
+    fun setConfirmedJob(
+        offerId: String,
+        workerId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+
+    ) {
+        var jobRef = db.collection("jobs")
+            .document(jobId)
+
+        jobRef.update(
+            mapOf(
+                "state" to StatesJob.INWORK,
+                "selectedOffer" to offerId,
+                "selectedWorker" to workerId
+            )
+        ).addOnCompleteListener(onCompleteListener)
+
+
+    }
+
+    fun updateConfirmJobForClient(
+        clientId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        var clientRef = db.collection("clients")
+            .document(clientId)
+
+
+
+        clientRef.update("inWorkJob", FieldValue.arrayUnion(jobId))
+            .addOnSuccessListener({
+                clientRef.update("myJobs", FieldValue.arrayRemove(jobId))
+                    .addOnCompleteListener(onCompleteListener)
+            })
+    }
+
+    fun updateConfirmJobForWorker(
+        workerId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        var workerRef = db.collection("workers")
+            .document(workerId)
+
+        workerRef.update("currentJob", jobId)
+            .addOnCompleteListener(onCompleteListener)
+    }
+
+    fun getJobAgreement(
+        userId: String,
+        userType: Int,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        if (userType == UserTypes.CLIENT) {
+
+
+        } else if (userType == UserTypes.WORKER) {
+            db.collection("workers").document(userId)
+                .get().addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val currentJob = document.getString("currentJob")
+                    }
+
+                }
+                .addOnFailureListener {
+
+                }
+
+        } else {
+
+        }
+    }
+
+    fun getInWorkJobArray(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                var inWorkList = document.data?.get("inWorkJob") as List<String>
+                onCompleteListener(Result.success(inWorkList))
+
+            }
+
+        }.addOnFailureListener {
+
+        }
     }
 
 

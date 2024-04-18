@@ -7,6 +7,7 @@
     <color name="colorSecondaryLight">#80ed99</color>
     <color name="black">#FF000000</color>
     <color name="white">#f1faee</color>
+    <color name="statusBarColor">#6ebded</color>
 
 
 </resources>
