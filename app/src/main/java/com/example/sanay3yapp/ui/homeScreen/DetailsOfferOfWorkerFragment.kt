@@ -101,5 +101,14 @@ class DetailsOfferOfWorkerFragment : Fragment() {
 
         }
 
+        binding.chat.setOnClickListener {
+            Log.d("ChatButton", "Button clicked")
+
+
+            val intent = Intent(requireContext(), ChatActivity::class.java)
+            startActivity(intent)
+
+        }
+
     }
 }

@@ -12,7 +12,7 @@ data class Client(
     var month: Int = 0,
     var year: Int = 0,
     var type: String = "client",
-    var myJobs: MutableList<String>? = null,
+    var newJobs: MutableList<String>? = null,
     var inWorkJob: MutableList<String>? = null,
     var finishedJob: MutableList<String>? = null
 

@@ -5,6 +5,7 @@ import com.example.sanay3yapp.ui.UserTypes
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -29,6 +30,7 @@ object DAO {
 
     fun getAllJobs(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
         db.collection("jobs")
+            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener(onCompleteListener)
 
@@ -57,6 +59,7 @@ object DAO {
         val docRef = db.collection("jobs").document(jobId).get()
             .addOnCompleteListener(onCompleteListener)
     }
+
 
     fun getOffersforJob(jobId: String, onCompleteListener: OnCompleteListener<QuerySnapshot>) {
         val docRef = db.collection("jobs")
@@ -164,7 +167,7 @@ object DAO {
 
             val clientDocRef = db.collection("clients").document(clientId)
 
-            clientDocRef.update("myJobs", FieldValue.arrayUnion(newJob.id))
+            clientDocRef.update("newJobs", FieldValue.arrayUnion(newJob.id))
                 .addOnCompleteListener(onCompleteListener)
 
         }.addOnFailureListener { exception ->
@@ -341,6 +344,25 @@ object DAO {
             if (document.exists() && document != null) {
                 var inWorkList = document.data?.get("inWorkJob") as List<String>
                 onCompleteListener(Result.success(inWorkList))
+
+            }
+
+        }.addOnFailureListener {
+
+        }
+    }
+
+    fun getNewJobsForClient(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                var newList = document.data?.get("newJobs") as List<String>
+                onCompleteListener(Result.success(newList))
 
             }
 

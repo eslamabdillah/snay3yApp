@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.databinding.FragmentDailyBinding
+import com.example.sanay3yapp.ui.MainActivity
 import com.google.firebase.firestore.toObject
 import dataBase.fireStore.DAO
 import dataBase.models.DailyWorker
@@ -21,6 +22,8 @@ class DailyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dailyBinding = FragmentDailyBinding.inflate(inflater, container, false)
+        (activity as? MainActivity)?.changeFragmentTitle("مساعدين وفواعلية")
+
         return dailyBinding.root
     }
 

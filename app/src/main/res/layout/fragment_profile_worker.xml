@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/profile_container"
+<FrameLayout android:id="@+id/profile_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,7 +9,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:theme="@style/RecyclerViewThemeOverlay"
+
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -66,6 +69,23 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="28sp" />
 
+                <Button
+                    android:id="@+id/worker_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:text="معرض الاعمال"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="الاسم"
+                    android:textSize="24sp" />
+
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="match_parent"
@@ -76,6 +96,14 @@
                     android:paddingVertical="8dp"
                     android:text="اسلام احمد عبداللاه"
                     android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="الايميل"
+                    android:textSize="24sp" />
+
 
                 <TextView
                     android:id="@+id/email"
