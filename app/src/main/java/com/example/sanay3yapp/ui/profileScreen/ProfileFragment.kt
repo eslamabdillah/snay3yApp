@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentProfileWorkerBinding
+import com.example.sanay3yapp.ui.MainActivity
 import com.example.sanay3yapp.ui.SessionUser
 
 class ProfileFragment : Fragment() {
@@ -20,6 +21,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileWorkerBinding.inflate(inflater, container, false)
+        (activity as? MainActivity)?.changeFragmentTitle("حسابى")
+
         return binding.root
     }
 
@@ -53,7 +56,7 @@ class ProfileFragment : Fragment() {
         binding.job.isVisible = false
         binding.exp.isVisible = false
         binding.clientsOpinions.setOnClickListener {
-            navigateToClientSOpinions(FragmentClientsOpinions())
+            loadChildFragment(FragmentClientsOpinions())
         }
     }
 
@@ -73,13 +76,16 @@ class ProfileFragment : Fragment() {
 
         binding.ratingBar.rating = SessionUser.worker.rate
         binding.clientsOpinions.setOnClickListener {
-            navigateToClientSOpinions(FragmentClientsOpinions())
+            loadChildFragment(FragmentClientsOpinions())
+        }
+        binding.workerGallery.setOnClickListener {
+            loadChildFragment(FragmentGallery())
         }
 
 
     }
 
-    fun navigateToClientSOpinions(childFragment: Fragment) {
+    fun loadChildFragment(childFragment: Fragment) {
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.profile_container, childFragment)
         transaction.commit()

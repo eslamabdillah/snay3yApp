@@ -16,8 +16,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/daily_worker_photo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/logo"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/CircularImageView"
@@ -32,6 +32,7 @@
             android:layout_height="match_parent"
             android:text="عبدالرحمن راشد"
             android:textSize="32sp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toTopOf="@id/rate_daily_worker"
             app:layout_constraintEnd_toStartOf="@id/daily_worker_photo"
             app:layout_constraintTop_toTopOf="@id/daily_worker_photo" />
@@ -45,6 +46,7 @@
             android:numStars="5"
             android:rating="4.5"
             android:stepSize="0.1"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@id/daily_worker_photo"
             app:layout_constraintEnd_toStartOf="@id/daily_worker_photo"
             app:layout_constraintTop_toBottomOf="@id/name" />

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentJobsBinding
 import com.example.sanay3yapp.databinding.FragmentJobsClientsBinding
+import com.example.sanay3yapp.ui.MainActivity
 import com.example.sanay3yapp.ui.SessionUser
 import com.google.firebase.firestore.toObject
 import dataBase.fireStore.DAO
@@ -29,13 +31,18 @@ class JobFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         if (SessionUser.currentUserType == "client") {
             bindingClient = FragmentJobsClientsBinding.inflate(inflater, container, false)
+            (activity as? MainActivity)?.changeFragmentTitle("وظايفك")
+
             return bindingClient.root
 
 
         } else {
             binding = FragmentJobsBinding.inflate(inflater, container, false)
+            (activity as? MainActivity)?.changeFragmentTitle("الشغلانة الحالية")
             return binding.root
 
 
@@ -62,9 +69,17 @@ class JobFragment : Fragment() {
 
     }
 
+
     private fun setupRecyclerView() {
         adapter = InWorkJobClientAdapter(null)
         bindingClient.recyclerViewInWorkJobs.adapter = adapter
+        adapter.listener = InWorkJobClientAdapter.OnItemClickListener { job ->
+            var childFragment = FragmentFullJobForClient()
+            loadChildFragment(childFragment)
+
+
+        }
+
     }
 
 
@@ -167,6 +182,20 @@ class JobFragment : Fragment() {
 
     private fun changeListAdapter() {
         adapter.changeListAdapter(inWorkJobsList)
+    }
+
+
+    /*fun loadChildFragment(childFragment: Fragment) {
+
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_job_container, childFragment)
+        transaction.commit()
+    }*/
+
+    fun loadChildFragment(childFragment: Fragment) {
+        val transaction = childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_job_container_in_job, childFragment)
+            .commit()
     }
 
 

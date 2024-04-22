@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentHomeBinding
 import com.example.sanay3yapp.ui.AddJobDialogFragment
+import com.example.sanay3yapp.ui.MainActivity
 
 class HomeFragment : Fragment() {
 
@@ -22,6 +23,8 @@ class HomeFragment : Fragment() {
     ): View {
 
         homeFragmentBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        (activity as? MainActivity)?.changeFragmentTitle("الرئيسية - الوظائف")
+
         return binding.root
     }
 

@@ -1,4 +1,4 @@
-package com.example.sanay3yapp.ui.jobScreen
+package com.example.sanay3yapp.ui.offerScreen
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.sanay3yapp.R
 import dataBase.models.Job
 
-class InWorkJobClientAdapter(var inWorkJobList: MutableList<Job>? = null) :
-    RecyclerView.Adapter<InWorkJobClientAdapter.InWorkJobViewHolder>() {
+class NewJobsClientAdapter(var inWorkJobList: MutableList<Job>? = null) :
+    RecyclerView.Adapter<NewJobsClientAdapter.InWorkJobViewHolder>() {
     class InWorkJobViewHolder(val view: View) : ViewHolder(view) {
 
         private val name: TextView = view.findViewById(R.id.job_name)
@@ -36,14 +36,16 @@ class InWorkJobClientAdapter(var inWorkJobList: MutableList<Job>? = null) :
         return inWorkJobList?.size ?: 0
     }
 
-
     override fun onBindViewHolder(holder: InWorkJobViewHolder, position: Int) {
         var currentJob = inWorkJobList!![position]
         holder.bindData(currentJob)
+
         if (listener != null) {
             holder.itemView.setOnClickListener {
                 listener?.onItemClick(currentJob)
+
             }
+
         }
     }
 
@@ -57,5 +59,6 @@ class InWorkJobClientAdapter(var inWorkJobList: MutableList<Job>? = null) :
 
     fun interface OnItemClickListener {
         fun onItemClick(job: Job)
+
     }
 }
