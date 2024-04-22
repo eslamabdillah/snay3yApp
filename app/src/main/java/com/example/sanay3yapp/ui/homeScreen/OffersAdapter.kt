@@ -16,10 +16,9 @@ import dataBase.models.Worker
 
 class OffersAdapter(var offersList: MutableList<Offer>?) :
     RecyclerView.Adapter<OffersAdapter.OfferVH>() {
-    val contextp: Context? = null
 
     class OfferVH(val view: View, private val context: Context) : ViewHolder(view) {
-        var photo: ImageView = view.findViewById(R.id.worker_photo)
+        var photo: ImageView = view.findViewById(R.id.worker_image)
         var details: TextView = view.findViewById(R.id.details)
         var cost: TextView = view.findViewById(R.id.cost)
         var duration: TextView = view.findViewById(R.id.duration)
@@ -39,8 +38,8 @@ class OffersAdapter(var offersList: MutableList<Offer>?) :
 
             }
             details.text = offer.details
-            cost.text = offer.cost.toString()
-            duration.text = offer.duration.toString()
+            cost.text = "الميزانية :" + offer.cost.toString() + " جنيه"
+            duration.text = "المدة :" + offer.duration.toString() + "يوم"
         }
 
     }

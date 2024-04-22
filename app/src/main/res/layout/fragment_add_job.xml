@@ -7,7 +7,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background2"
+        android:background="@color/white"
         android:padding="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,8 +31,8 @@
                 android:layout_marginTop="12dp"
                 android:gravity="top|start"
                 android:hint="ادخل تفاصيل الوظيفة هنا"
-                android:maxLines="10"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:lines="6"
                 android:scrollbars="vertical"
                 android:textSize="26sp"
                 app:layout_constraintTop_toBottomOf="@id/job_name" />

@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.sanay3yapp.R
+import com.example.sanay3yapp.ui.Functions
+import com.example.sanay3yapp.ui.StatesJob
 import dataBase.models.Job
 
 class JobsAdapter(var offerList: MutableList<Job>?) :
@@ -16,13 +18,16 @@ class JobsAdapter(var offerList: MutableList<Job>?) :
         private val details: TextView = view.findViewById(R.id.details)
         private val cost: TextView = view.findViewById(R.id.cost)
         private val duration: TextView = view.findViewById(R.id.duration)
+        private val date: TextView = view.findViewById(R.id.date)
 
         fun bindData(currentJob: Job) {
             name.text = currentJob.name
             details.text = currentJob.details
             cost.text = currentJob.cost.toString()
             duration.text = currentJob.duration.toString()
+            date.text = Functions.convertToDate(currentJob.date)
         }
+
 
     }
 
@@ -45,10 +50,11 @@ class JobsAdapter(var offerList: MutableList<Job>?) :
             }
         }
 
+
     }
 
     fun bindList(newList: MutableList<Job>) {
-        offerList = newList
+        offerList = newList.filter { it.state == StatesJob.NEW }.toMutableList()
         notifyDataSetChanged()
     }
 

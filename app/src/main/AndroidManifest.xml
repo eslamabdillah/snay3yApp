@@ -36,16 +36,20 @@
             android:name=".ui.authentication_forms.signup.UploadPhotoActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.homeScreen.ChatActivity"
+            android:exported="false" />
+
 
         <activity
             android:name=".ui.Splash"
+            android:theme="@style/SplashTheme"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.MainActivity"

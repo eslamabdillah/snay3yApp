@@ -6,19 +6,21 @@ data class Worker(
     var email: String = "",
     var name: String = "",
     var type: String = "worker",
-    var age: Int = 0, // Default value needed
-    var passWord: String = "", // Default value needed
-    var phone: Long = 0, // Default value needed
-    var national_id: Long = 0, // Default value needed
-    var job: String = "", // Default value needed
-    var city: String = "", // Default value needed
-    var exp: Int = 0, // Default value needed
+    var age: Int = 0,
+    var passWord: String = "",
+    var phone: Long = 0,
+    var national_id: Long = 0,
+    var job: String = "",
+    var city: String = "",
+    var exp: Int = 0,
     var day: Int = 0,
     var month: Int = 0,
     var year: Int = 0,
     var photoUrl: String = "",
     var myOffers: MutableList<Offer>? = null,
-    var rate: Float = 0f
+    var rate: Float = 0f,
+    var newJobList: MutableList<String>? = null,
+    var currentJob: String = ""
 
 // TODO: my_Offers , current_Job , Clients_opinion
 

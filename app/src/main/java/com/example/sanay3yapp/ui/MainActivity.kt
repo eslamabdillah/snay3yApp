@@ -59,9 +59,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
+
     private fun showFragmentSelected(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
+
+    fun changeFragmentTitle(title: String) {
+        mainBinding.fragmentTitle.text = title
+    }
+
+
 }

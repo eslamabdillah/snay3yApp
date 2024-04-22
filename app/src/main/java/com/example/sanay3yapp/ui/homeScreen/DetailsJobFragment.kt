@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentDetailsJobBinding
+import com.example.sanay3yapp.ui.Functions
 import com.example.sanay3yapp.ui.SessionUser
 import com.google.firebase.firestore.toObject
 import dataBase.fireStore.DAO
@@ -69,7 +70,7 @@ class DetailsJobFragment : Fragment() {
         adapter = OffersAdapter(null)
         binding.recyclerViewOffers.adapter = adapter
         adapter.listenenr = OffersAdapter.OnTimeClickListener { offerObject ->
-            val detailsFragment = DetailsOfferOfWorkerFragment.newInstance(offerObject)
+            val detailsFragment = DetailsOfferOfWorkerFragment.newInstance(offerObject, job)
             loadChildFragment(detailsFragment)
         }
 
@@ -100,10 +101,12 @@ class DetailsJobFragment : Fragment() {
                 if (task.isSuccessful) {
                     val document = task.result?.toObject<Job>()
                     if (document != null) {
+                        job = document
                         binding.mainJob.jobName.text = document.name
                         binding.mainJob.details.text = document.details
                         binding.mainJob.cost.text = document.cost.toString()
                         binding.mainJob.duration.text = document.duration.toString()
+                        binding.mainJob.date.text = Functions.convertToDate(document.date)
 
                     } else {
                         // Handle the case where the document is null

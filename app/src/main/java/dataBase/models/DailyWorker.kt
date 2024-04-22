@@ -4,7 +4,7 @@ data class DailyWorker(
     var id: String = "",
     var email: String = "",
     var name: String = "",
-    var type: String = "assistant",
+    var type: String = "dailyWorker",
     var passWord: String = "", // Default value needed
     var phone: Long = 0, // Default value needed
     var job: String = "", // Default value needed

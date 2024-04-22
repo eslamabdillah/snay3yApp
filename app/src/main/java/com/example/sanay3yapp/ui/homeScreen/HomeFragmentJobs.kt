@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentHomeJobsBinding
+import com.example.sanay3yapp.ui.MainActivity
 import com.google.firebase.firestore.toObject
 import dataBase.fireStore.DAO
 import dataBase.models.Job
@@ -24,8 +25,8 @@ class HomeFragmentJobs : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         offerBinding = FragmentHomeJobsBinding.inflate(inflater, container, false)
+        (activity as? MainActivity)?.changeFragmentTitle("الرئيسية - الوظائف")
         return offerBinding.root
     }
 
