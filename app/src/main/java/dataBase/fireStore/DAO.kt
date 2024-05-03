@@ -1,17 +1,24 @@
 package dataBase.fireStore
 
+import android.net.Uri
 import com.example.sanay3yapp.ui.StatesJob
 import com.example.sanay3yapp.ui.UserTypes
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.TaskCompletionSource
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import dataBase.models.Client
 import dataBase.models.ClientOpinion
 import dataBase.models.DailyWorker
+import dataBase.models.GallaryProject
 import dataBase.models.Job
 import dataBase.models.Offer
 import dataBase.models.Worker
@@ -369,6 +376,98 @@ object DAO {
         }.addOnFailureListener {
 
         }
+    }
+
+    fun uploadPhotosToProjectFolder(
+        projectId: String,
+        photos: List<Uri>,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val storge = Firebase.storage.reference
+        val photoCount = photos.size
+        var uploadedCount = 0
+
+        photos.forEach { uri ->
+            val photoRef = storge.child("projects/$projectId/${uri.lastPathSegment}")
+            photoRef.putFile(uri).addOnCompleteListener({
+                onCompleteListener
+            })
+        }
+
+    }
+
+    fun addNewProject(
+        workerId: String,
+        newProject: GallaryProject,
+        onCompleteListener: (String) -> Unit
+
+    ) {
+
+        val galleryRef = db.collection("workers")
+            .document(workerId)
+            .collection("gallery")
+            .document()
+
+        var projectId = galleryRef.id
+        newProject.projectId = projectId
+
+
+
+        galleryRef.set(newProject).addOnSuccessListener({
+            onCompleteListener(projectId)
+
+        }).addOnFailureListener({
+
+        })
+
+
+    }
+
+    fun uploadImages(
+        projectId: String,
+        imageUris: MutableList<Uri>,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val folderName = projectId // Unique folder name
+        val uploads = mutableListOf<Task<Uri>>()
+
+        imageUris.forEachIndexed { index, uri ->
+            val imageRef = storageRef.child("projects/$folderName/photo${index + 1}.jpg")
+            val uploadTask = imageRef.putFile(uri).continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                imageRef.downloadUrl
+            }
+            uploads.add(uploadTask)
+        }
+
+        // Wait for all upload tasks to complete
+        Tasks.whenAll(uploads).addOnCompleteListener { task ->
+            val taskCompletionSource = TaskCompletionSource<Void>()
+            if (task.isSuccessful) {
+                taskCompletionSource.setResult(null) // Successfully complete the task
+            } else {
+                taskCompletionSource.setException(
+                    task.exception ?: Exception("Failed to complete all uploads")
+                )
+            }
+            onCompleteListener.onComplete(taskCompletionSource.task) // Pass the task from TaskCompletionSource
+        }
+    }
+
+    fun getProjectForWorker(
+        workerId: String,
+        onCompleteListener: OnCompleteListener<QuerySnapshot>
+    ) {
+        val gallaryRef = db.collection("workers")
+            .document(workerId)
+            .collection("gallery")
+
+        gallaryRef.get().addOnCompleteListener(onCompleteListener)
     }
 
 
