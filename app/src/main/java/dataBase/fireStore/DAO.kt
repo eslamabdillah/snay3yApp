@@ -1,12 +1,15 @@
 package dataBase.fireStore
 
 import android.net.Uri
+import android.util.Log
 import com.example.sanay3yapp.ui.StatesJob
 import com.example.sanay3yapp.ui.UserTypes
+import com.example.sanay3yapp.ui.chat.ChatAdapter
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
@@ -15,17 +18,20 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import dataBase.models.ChatRoom
 import dataBase.models.Client
 import dataBase.models.ClientOpinion
 import dataBase.models.DailyWorker
 import dataBase.models.GallaryProject
 import dataBase.models.Job
+import dataBase.models.Message
 import dataBase.models.Offer
 import dataBase.models.Worker
 
 
 object DAO {
     private val db = Firebase.firestore
+
 
     fun getAllWorkers(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
         db.collection("workers")
@@ -468,6 +474,70 @@ object DAO {
             .collection("gallery")
 
         gallaryRef.get().addOnCompleteListener(onCompleteListener)
+    }
+
+
+    //for chats
+    fun makeChatRoom(
+        chatRoom: ChatRoom,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val refChat = db.collection("chats").document(chatRoom.id)
+        refChat.set(chatRoom).addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun sendMessage(
+        message: Message,
+        chatRoomId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        var refMessage = db.collection("chats")
+            .document(chatRoomId)
+            .collection("messages")
+            .document()
+
+        refMessage.set(message).addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun getChatRoom(
+        roomId: String,
+        adapter: ChatAdapter
+    ) {
+        val messagesRef = db.collection("chats").document(roomId).collection("messages")
+        val query = messagesRef.orderBy("time", Query.Direction.ASCENDING)
+
+        query.addSnapshotListener { snapshots, e ->
+            if (e != null) {
+                Log.w("Firestore", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            /*    val messages=snapshots!!.toObjects(Message::class.java)
+                adapter.changeAdapterList(messages.toMutableList())
+    */
+            snapshots?.documentChanges?.forEach { documentChange ->
+                var message = documentChange.document.toObject(Message::class.java)
+                when (documentChange.type) {
+                    DocumentChange.Type.ADDED -> {
+                        adapter.addMessage(message)
+
+                    }
+
+                    DocumentChange.Type.MODIFIED -> {
+
+                    }
+
+                    DocumentChange.Type.REMOVED -> {
+
+                    }
+                }
+
+            }
+        }
+
+
     }
 
 
