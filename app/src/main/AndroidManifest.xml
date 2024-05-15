@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -38,6 +41,14 @@
 
         <activity
             android:name=".ui.homeScreen.ChatActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.profileScreen.AddProjectActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.chat.ChatRoomActivity"
             android:exported="false" />
 
 
