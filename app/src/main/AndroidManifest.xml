@@ -47,6 +47,10 @@
             android:name=".ui.profileScreen.AddProjectActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.chat.ChatRoomActivity"
+            android:exported="false" />
+
 
         <activity
             android:name=".ui.Splash"

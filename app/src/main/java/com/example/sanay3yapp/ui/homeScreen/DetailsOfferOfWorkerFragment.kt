@@ -12,7 +12,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.databinding.FragmentDetailsWorkerOfferBinding
 import com.example.sanay3yapp.ui.SessionUser
+import com.example.sanay3yapp.ui.chat.ChatRoomActivity
 import dataBase.fireStore.DAO
+import dataBase.models.ChatRoom
 import dataBase.models.Job
 import dataBase.models.Offer
 
@@ -20,6 +22,7 @@ class DetailsOfferOfWorkerFragment : Fragment() {
     lateinit var binding: FragmentDetailsWorkerOfferBinding
     lateinit var currentOffer: Offer
     lateinit var currentJob: Job
+    var chatroom = ChatRoom()
 
     companion object {
         private const val receive_offer = "receive_offer"
@@ -104,11 +107,27 @@ class DetailsOfferOfWorkerFragment : Fragment() {
         binding.chat.setOnClickListener {
             Log.d("ChatButton", "Button clicked")
 
+            chatroom.id = currentOffer.id
+            chatroom.clientId = currentJob.owner
+            chatroom.workerId = currentOffer.workerId
+            chatroom.jobId = currentJob.id
+            DAO.makeChatRoom(chatroom) {
+                val intent = Intent(requireContext(), ChatRoomActivity::class.java)
+                intent.putExtra("ROOMID", currentOffer.id)
+                if (SessionUser.currentUserType == "worker") {
+                    intent.putExtra("ROOMNAME", currentOffer.workerId)
+                }
+                if (SessionUser.currentUserType == "client") {
+                    intent.putExtra("ROOMNAME", currentJob.owner)
 
-            val intent = Intent(requireContext(), ChatActivity::class.java)
-            startActivity(intent)
+                }
+                startActivity(intent)
+            }
+
 
         }
 
     }
+
+
 }
