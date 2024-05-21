@@ -26,6 +26,8 @@ class JobFragment : Fragment() {
     var agreement = Agreement()
     private var inWorkJobsList = mutableListOf<Job>()
     lateinit var adapter: InWorkJobClientAdapter
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,6 +55,8 @@ class JobFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         if (SessionUser.currentUserType == "client") {
             setupRecyclerView()
             downloadData()
@@ -74,7 +78,11 @@ class JobFragment : Fragment() {
         adapter = InWorkJobClientAdapter(null)
         bindingClient.recyclerViewInWorkJobs.adapter = adapter
         adapter.listener = InWorkJobClientAdapter.OnItemClickListener { job ->
-            var childFragment = FragmentFullJobForClient()
+
+
+            var childFragment = FragmentFullJobForClient.newInstance(job.id)
+
+
             loadChildFragment(childFragment)
 
 

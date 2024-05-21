@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="محتاج نقاش لشقة 120 متر"
+            tools:text="محتاج نقاش لشقة 120 متر"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:lines="2"
-            android:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
+            tools:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
             android:textSize="24sp"
             app:layout_constraintTop_toBottomOf="@id/line1" />
 
@@ -94,9 +94,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
+                android:padding="4dp"
                 android:background="@drawable/edittext_background"
                 android:gravity="center"
-                android:text="1000 "
+                tools:text="1000 "
                 android:textSize="18sp" />
 
             <TextView
@@ -124,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="يوم "
+                tools:text="يوم "
                 android:textSize="18sp" />
 
             <TextView
@@ -135,7 +136,8 @@
                 android:layout_weight="2"
                 android:background="@drawable/edittext_background"
                 android:gravity="center"
-                android:text="10 "
+                android:padding="4dp"
+                tools:text="10 "
                 android:textSize="18sp" />
 
             <TextView

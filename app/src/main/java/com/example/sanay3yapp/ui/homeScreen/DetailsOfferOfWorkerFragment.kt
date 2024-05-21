@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentDetailsWorkerOfferBinding
 import com.example.sanay3yapp.ui.SessionUser
 import com.example.sanay3yapp.ui.chat.ChatRoomActivity
@@ -125,6 +126,13 @@ class DetailsOfferOfWorkerFragment : Fragment() {
             }
 
 
+        }
+
+        binding.sanayeyDetails.workerDetails.setOnClickListener {
+            val fragment = DetailsWorkerFragment.newInstance(currentOffer.workerId)
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_worker_Details, fragment)
+                .commit()
         }
 
     }

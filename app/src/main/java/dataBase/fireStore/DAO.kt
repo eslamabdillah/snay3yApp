@@ -384,6 +384,17 @@ object DAO {
         }
     }
 
+    fun finishJob(
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val jobRef = db.collection("jobs")
+            .document(jobId)
+
+        jobRef.update("state", StatesJob.FINISHED).addOnCompleteListener(onCompleteListener)
+
+    }
+
     fun uploadPhotosToProjectFolder(
         projectId: String,
         photos: List<Uri>,
