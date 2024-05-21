@@ -58,6 +58,7 @@ class ProfileFragment : Fragment() {
         binding.clientsOpinions.setOnClickListener {
             loadChildFragment(FragmentClientsOpinions())
         }
+        binding.workerGallery.isVisible = false
     }
 
     private fun setupProfileWorker() {
@@ -73,6 +74,7 @@ class ProfileFragment : Fragment() {
             .placeholder(R.drawable.logo) // Optional placeholder
             .error(R.drawable.logo)
             .into(binding.workerImage)
+
 
         binding.ratingBar.rating = SessionUser.worker.rate
         binding.clientsOpinions.setOnClickListener {
