@@ -14,6 +14,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -49,6 +50,13 @@ object DAO {
 
     }
 
+    fun getWorkerByField(workerJob: String, workerCity: String, onCompleteListener: OnCompleteListener<QuerySnapshot>) {
+        val docRef = db.collection("workers")
+            .whereEqualTo("job", workerJob)
+            .whereEqualTo("city", workerCity)
+            .get()
+            .addOnCompleteListener(onCompleteListener)
+    }
 
     fun getWorker(workerId: String, onCompleteListener: OnCompleteListener<DocumentSnapshot>) {
         val docRef = db.collection("workers").document(workerId).get()

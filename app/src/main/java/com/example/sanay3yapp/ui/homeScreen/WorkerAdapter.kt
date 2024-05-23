@@ -29,9 +29,11 @@ class WorkerAdapter(private var workersList: MutableList<Worker>?) :
     class workerViewHolder(workerItem: View) : RecyclerView.ViewHolder(workerItem) {
         private var name: TextView = workerItem.findViewById(R.id.name_worker_item)
         private var place: TextView = workerItem.findViewById(R.id.place_worker_item)
+        private var job: TextView = workerItem.findViewById(R.id.job)
         fun bind(worker: Worker) {
             name.text = worker.name
             place.text = worker.city
+            job.text = worker.job
         }
     }
 

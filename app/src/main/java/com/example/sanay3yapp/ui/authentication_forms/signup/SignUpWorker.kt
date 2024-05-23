@@ -99,9 +99,19 @@ class SignUpWorker : AppCompatActivity() {
 
     private fun validation() {
         worker.email = binding.email.text.toString()
-        worker.passWord = binding.password.text.toString()
+
+        if (binding.password.text.length >= 8){
+            worker.passWord = binding.password.text.toString()
+        }else{
+            Toast.makeText(this,"الرقم السرى اقل من 8 حروف او ارقام" , Toast.LENGTH_LONG).show()
+        }
         worker.name = binding.name.text.toString()
-        worker.national_id = binding.idNational.text.toString().toLong()
+
+        if (binding.idNational.text.length == 14){
+            worker.national_id = binding.idNational.text.toString().toLong()
+        }else{
+            Toast.makeText(this,"الرقم القومى خطأ" , Toast.LENGTH_LONG).show()
+        }
         worker.phone = binding.phone.text.toString().toLong()
         worker.exp = binding.exp.text.toString().toInt()
     }
