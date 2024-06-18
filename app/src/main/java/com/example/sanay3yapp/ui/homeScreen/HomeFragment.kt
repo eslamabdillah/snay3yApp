@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentHomeBinding
-import com.example.sanay3yapp.ui.Academy.AcademyActivity
+import com.example.sanay3yapp.ui.Academy.Academy
 import com.example.sanay3yapp.ui.AddJobDialogFragment
 import com.example.sanay3yapp.ui.MainActivity
 
@@ -60,7 +60,7 @@ class HomeFragment : Fragment(), DialogDismissCallback {
         })
 
         homeFragmentBinding!!.Academy.setOnClickListener({
-            val intent = Intent(context, AcademyActivity::class.java)
+            val intent = Intent(context, Academy::class.java)
             startActivity(intent)
         })
     }
