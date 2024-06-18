@@ -1,5 +1,6 @@
 package com.example.sanay3yapp.ui.homeScreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentHomeBinding
+import com.example.sanay3yapp.ui.Academy.AcademyActivity
 import com.example.sanay3yapp.ui.AddJobDialogFragment
 import com.example.sanay3yapp.ui.MainActivity
 
@@ -55,6 +57,11 @@ class HomeFragment : Fragment(), DialogDismissCallback {
             bottomSheetFragment.show(childFragmentManager, "addJobSheet")
 
 
+        })
+
+        homeFragmentBinding!!.Academy.setOnClickListener({
+            val intent = Intent(context, AcademyActivity::class.java)
+            startActivity(intent)
         })
     }
 

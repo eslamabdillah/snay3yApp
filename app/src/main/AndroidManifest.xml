@@ -28,6 +28,9 @@
             android:name=".ui.authentication_forms.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.Academy.AcademyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.authentication_forms.signup.SignUpWorker"
             android:exported="false" />
 
