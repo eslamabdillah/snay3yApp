@@ -14,7 +14,8 @@ data class Client(
     var type: String = "client",
     var newJobs: MutableList<String>? = null,
     var inWorkJob: MutableList<String>? = null,
-    var finishedJob: MutableList<String>? = null
+    var completeJobs: MutableList<String>? = null,
+    var chatRooms: MutableList<String>? = null
 
 
 )

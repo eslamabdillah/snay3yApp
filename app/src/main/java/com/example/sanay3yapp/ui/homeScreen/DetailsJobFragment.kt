@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
@@ -16,12 +17,13 @@ import dataBase.fireStore.DAO
 import dataBase.models.Job
 import dataBase.models.Offer
 
-class DetailsJobFragment : Fragment() {
+class DetailsJobFragment : Fragment(), DialogDismissCallback {
 
     private lateinit var binding: FragmentDetailsJobBinding
     private lateinit var adapter: OffersAdapter
     private var jobId: String? = null
     private var job = Job()
+    var enableGiveOffer: Boolean = true
 
 
     companion object {
@@ -46,17 +48,45 @@ class DetailsJobFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressBar.visibility = View.VISIBLE
+        binding.content.visibility = View.GONE
 
         loadJob()
-        loadOffers()
         setupView()
         setupAdapter()
+
         binding.mainJob.giveOffer.setOnClickListener({
-            val bottomSheet = FragmentGiveOffer.newInstance(jobId!!)
-            bottomSheet.show(childFragmentManager, "give offer")
+            setupGiveOfferButton()
         })
 
 
+    }
+
+
+    private fun setupGiveOfferButton() {
+        DAO.getOffersforWorker(SessionUser.worker.id) { task ->
+            if (task.isSuccessful) {
+                val documents = task.result.documents.toMutableList()
+                documents.forEach({ offer ->
+                    var currentOffer = offer.toObject<Offer>()
+                    if (currentOffer!!.jobId == jobId) {
+                        Toast.makeText(context, "أضفت عرض من قبل ", Toast.LENGTH_LONG).show()
+                        enableGiveOffer = false
+                    }
+
+
+                })
+            } else {
+
+            }
+            if (enableGiveOffer == true) {
+                val bottomSheet = FragmentGiveOffer.newInstance(jobId!!)
+                bottomSheet.setDialogDismissCallback(this)
+                bottomSheet.show(childFragmentManager, "give offer")
+            }
+
+
+        }
     }
 
     private fun setupView() {
@@ -77,6 +107,8 @@ class DetailsJobFragment : Fragment() {
     }
 
     private fun loadOffers() {
+        binding.progressBarOffers.visibility = View.VISIBLE
+        binding.recyclerViewOffers.visibility = View.GONE
         jobId?.let { jobid ->
             DAO.getOffersforJob(jobId!!) { task ->
                 if (task.isSuccessful) {
@@ -88,6 +120,10 @@ class DetailsJobFragment : Fragment() {
 
                 }
                 changeAdapterList()
+
+                binding.progressBarOffers.visibility = View.GONE
+                binding.recyclerViewOffers.visibility = View.VISIBLE
+
 
             }
 
@@ -107,6 +143,9 @@ class DetailsJobFragment : Fragment() {
                         binding.mainJob.cost.text = document.cost.toString()
                         binding.mainJob.duration.text = document.duration.toString()
                         binding.mainJob.date.text = Functions.convertToDate(document.date)
+                        binding.progressBar.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                        loadOffers()
 
                     } else {
                         // Handle the case where the document is null
@@ -124,7 +163,10 @@ class DetailsJobFragment : Fragment() {
     }
 
     fun changeAdapterList() {
-        adapter.bindList(job.workerOffers)
+// Sort the workerOffers list by date
+        val sortedOffers = job.workerOffers.sortedBy { it.date }
+        // Update the adapter with the sorted list
+        adapter.bindList(sortedOffers.reversed().toMutableList())
     }
 
     fun loadChildFragment(childFragment: Fragment) {
@@ -132,6 +174,19 @@ class DetailsJobFragment : Fragment() {
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container_details_offer, childFragment)
         transaction.commit()
+    }
+
+    override fun onDialogDismissed() {
+        refreshFragment()
+    }
+
+    private fun refreshFragment() {
+
+        Toast.makeText(context, "تم اضافة العرض", Toast.LENGTH_SHORT).show()
+        job.workerOffers.clear()
+        binding.progressBarOffers.visibility = View.VISIBLE
+        binding.recyclerViewOffers.visibility = View.GONE
+        loadOffers()
     }
 
 

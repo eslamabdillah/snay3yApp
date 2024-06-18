@@ -201,6 +201,12 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="28sp" />
 
+                <Button
+                    android:id="@+id/btn_signOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تسجيل الخروج" />
+
             </LinearLayout>
 
 

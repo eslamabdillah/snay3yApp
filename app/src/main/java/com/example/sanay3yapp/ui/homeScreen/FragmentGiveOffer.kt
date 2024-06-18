@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.sanay3yapp.databinding.FragmentGiveOfferBinding
 import com.example.sanay3yapp.ui.SessionUser
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.Timestamp
 import dataBase.fireStore.DAO
 import dataBase.models.Offer
 
@@ -37,6 +38,7 @@ class FragmentGiveOffer : BottomSheetDialogFragment() {
                 DAO.addOfferInJob(jobId!!, newOffer) {
                     Toast.makeText(context, "add offer", Toast.LENGTH_LONG)
                 }
+                dismissCallback?.onDialogDismissed()
                 dialog?.dismiss()
 
 
@@ -53,6 +55,8 @@ class FragmentGiveOffer : BottomSheetDialogFragment() {
         newOffer.duration = binding.offerDurarion.text.toString().toInt()
         newOffer.workerId = SessionUser.worker.id
         newOffer.jobId = jobId!!
+        newOffer.date = Timestamp.now()
+
 
     }
 
@@ -81,5 +85,11 @@ class FragmentGiveOffer : BottomSheetDialogFragment() {
                 putString(JOB_ID_KEY, jobId)
             }
         }
+    }
+
+    //call back
+    private var dismissCallback: DialogDismissCallback? = null
+    fun setDialogDismissCallback(callback: DialogDismissCallback) {
+        dismissCallback = callback
     }
 }
