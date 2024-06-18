@@ -4,6 +4,7 @@ data class ChatRoom(
     var id: String = "",
     var clientId: String = "",
     var workerId: String = "",
-    var jobId: String = ""
+    var jobId: String = "",
+    var jobName: String = ""
 
 )

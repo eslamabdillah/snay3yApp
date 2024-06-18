@@ -56,18 +56,23 @@ class DetailsWorkerFragment : Fragment() {
         binding.job.text = worker.job
         binding.ratingBar.rating = worker.rate
         binding.clientsOpinions.setOnClickListener {
-            loadChildFragment(FragmentClientsOpinions())
+            val fragment = FragmentClientsOpinions.newInstance(worker.id)
+            loadChildFragment(fragment)
         }
+
         binding.workerGallery.setOnClickListener {
-            loadChildFragment(FragmentGallery())
+            val fragment = FragmentGallery.newInstance(worker.id)
+
+            loadChildFragment(fragment)
         }
 
 
     }
 
     fun loadChildFragment(childFragment: Fragment) {
+
         val transaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.profile_container, childFragment)
+        transaction.replace(R.id.worker_details_container, childFragment)
         transaction.commit()
     }
 

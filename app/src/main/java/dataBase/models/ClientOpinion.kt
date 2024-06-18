@@ -7,5 +7,6 @@ data class ClientOpinion(
     var rateWorkAgain: Float = 0f,
     var rateDelivery: Float = 0f,
     var opinionText: String = "",
-    var jobId: String = ""
+    var jobId: String = "",
+    var workerId: String = ""
 )

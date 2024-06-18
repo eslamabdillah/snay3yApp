@@ -7,6 +7,8 @@ import java.util.Locale
 object Constants {
     var idForSignUp: String = ""
     var workerType: String = ""
+    var dialogVisible: Boolean = false
+
 }
 
 object StatesJob {
@@ -28,3 +30,5 @@ object Functions {
     }
 
 }
+
+

@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -30,7 +31,8 @@ import dataBase.models.Worker
 
 
 object DAO {
-    private val db = Firebase.firestore
+    public val db = Firebase.firestore
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
 
     fun getAllWorkers(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
@@ -238,6 +240,20 @@ object DAO {
 
     }
 
+    fun addClientOpinion(
+        workerId: String,
+        opinion: ClientOpinion,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val workerRef = db.collection("workers")
+            .document(workerId)
+            .collection("clientsOpinions")
+            .document()
+
+        opinion.id = workerRef.id
+        workerRef.set(opinion).addOnCompleteListener(onCompleteListener)
+    }
+
     fun setClientOpinionForWorker(
         workerId: String,
         jobId: String,
@@ -304,9 +320,36 @@ object DAO {
 
         clientRef.update("inWorkJob", FieldValue.arrayUnion(jobId))
             .addOnSuccessListener({
-                clientRef.update("myJobs", FieldValue.arrayRemove(jobId))
+                clientRef.update("newJobs", FieldValue.arrayRemove(jobId))
                     .addOnCompleteListener(onCompleteListener)
             })
+    }
+
+    fun makeOfferAcceptableForJob(
+        jobId: String,
+        offerId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val offerRef = db.collection("jobs")
+            .document(jobId)
+            .collection("workersOffers")
+            .document(offerId)
+
+        offerRef.update("state", "accept")
+            .addOnCompleteListener(onCompleteListener)
+    }
+
+    fun makeOfferAcceptableForWorker(
+        workerId: String,
+        offerId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val offerRef = db.collection("workers").document(workerId)
+            .collection("myOffers").document(offerId)
+
+        offerRef.update("state", "accept")
+
+
     }
 
     fun updateConfirmJobForWorker(
@@ -316,8 +359,7 @@ object DAO {
     ) {
         var workerRef = db.collection("workers")
             .document(workerId)
-
-        workerRef.update("currentJob", jobId)
+            .update("currentJob", jobId)
             .addOnCompleteListener(onCompleteListener)
     }
 
@@ -365,6 +407,46 @@ object DAO {
         }
     }
 
+    fun getCompleteJobArray(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val completeJobs =
+                    document.data?.get("completeJobs") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(completeJobs))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
+    fun getCompleteJobArrayForWorker(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("workers")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val completeJobs =
+                    document.data?.get("completeJobsList") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(completeJobs))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
     fun getNewJobsForClient(
         clientId: String,
         onCompleteListener: (Result<List<String>>) -> Unit
@@ -384,6 +466,25 @@ object DAO {
         }
     }
 
+    fun getCompleteJobsForClient(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                var newList = document.data?.get("completeJob") as List<String>
+                onCompleteListener(Result.success(newList))
+
+            }
+
+        }.addOnFailureListener {
+
+        }
+    }
+
     fun finishJob(
         jobId: String,
         onCompleteListener: OnCompleteListener<Void>
@@ -393,6 +494,40 @@ object DAO {
 
         jobRef.update("state", StatesJob.FINISHED).addOnCompleteListener(onCompleteListener)
 
+    }
+
+    // TODO: kkkkkkkkkkkkkkkk
+    fun finishJobForWorker(
+        workerId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val workerRef = db.collection("workers")
+            .document(workerId)
+
+        workerRef.update("completeJobsList", FieldValue.arrayUnion(jobId))
+            .addOnSuccessListener({
+                workerRef.update("currentJob", "")
+                    .addOnCompleteListener(onCompleteListener)
+            })
+            .addOnFailureListener({})
+
+    }
+
+    fun finishJobForClient(
+        clientId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.update("inWorkJob", FieldValue.arrayRemove(jobId))
+            .addOnSuccessListener({
+                clientRef.update("completeJobs", FieldValue.arrayUnion(jobId))
+                    .addOnCompleteListener(onCompleteListener)
+            })
+            .addOnFailureListener({})
     }
 
     fun uploadPhotosToProjectFolder(
@@ -498,6 +633,30 @@ object DAO {
 
     }
 
+    fun storeChatRoomWithClient(
+        chatRoomId: String,
+        clientId: String,
+        onCompleteListener: OnCompleteListener<Void>
+
+    ) {
+        db.collection("clients").document(clientId)
+            .update("chatRooms", FieldValue.arrayUnion(chatRoomId))
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun storeChatRoomWithWorker(
+        chatRoomId: String,
+        workerId: String,
+        onCompleteListener: OnCompleteListener<Void>
+
+    ) {
+        db.collection("workers").document(workerId)
+            .update("chatRooms", FieldValue.arrayUnion(chatRoomId))
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
     fun sendMessage(
         message: Message,
         chatRoomId: String,
@@ -549,6 +708,56 @@ object DAO {
         }
 
 
+    }
+
+    fun getChatRoom(
+        roomId: String,
+        onCompleteListener: OnCompleteListener<DocumentSnapshot>
+    ) {
+        var doucRef = db.collection("chats").document(roomId)
+            .get().addOnCompleteListener(onCompleteListener)
+    }
+
+    fun getChatRoomsArrayForClient(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val chatrooms = document.data?.get("chatRooms") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(chatrooms))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
+    fun getChatRoomsArrayForWorker(
+        workerId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val workerRef = db.collection("workers")
+            .document(workerId)
+
+        workerRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val chatrooms = document.data?.get("chatRooms") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(chatrooms))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
+    fun signOut(onCompleteListener: OnCompleteListener<Void>) {
+        firebaseAuth.signOut().apply { onCompleteListener }
     }
 
 

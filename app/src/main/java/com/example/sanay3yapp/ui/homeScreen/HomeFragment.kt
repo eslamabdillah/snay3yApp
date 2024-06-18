@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentHomeBinding
 import com.example.sanay3yapp.ui.AddJobDialogFragment
 import com.example.sanay3yapp.ui.MainActivity
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DialogDismissCallback {
 
     private var homeFragmentBinding: FragmentHomeBinding? = null
     private val binding get() = homeFragmentBinding!!
     lateinit var bottomSheetFragment: AddJobDialogFragment
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,11 +51,25 @@ class HomeFragment : Fragment() {
 
         homeFragmentBinding!!.addJob.setOnClickListener({
             bottomSheetFragment = AddJobDialogFragment()
+            bottomSheetFragment.setDialogDismissCallback(this)
             bottomSheetFragment.show(childFragmentManager, "addJobSheet")
 
 
         })
     }
 
+    override fun onDialogDismissed() {
+        refreshFragment()
+    }
+
+    private fun refreshFragment() {
+
+        Toast.makeText(context, "تم اضافة الوظيفة", Toast.LENGTH_SHORT).show()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_content, HomeFragmentJobs())
+            .commit()
+    }
+
 
 }
+

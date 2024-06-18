@@ -49,6 +49,8 @@ class FragmentFullJobForClient : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val jobID = arguments?.getString("jobID")
         Log.d("jobScreen", jobID ?: "no job")
+        binding.progressBar.visibility = View.VISIBLE
+        binding.scrollJob.visibility = View.GONE
         downloadData(jobID!!)
 
 
@@ -104,6 +106,9 @@ class FragmentFullJobForClient : Fragment() {
             .error(R.drawable.logo)
             .into(binding.detailsConfirmJob.sanayeyDetails.workerImage)
 
+        binding.progressBar.visibility = View.GONE
+        binding.scrollJob.visibility = View.VISIBLE
+
         binding.detailsConfirmJob.call.setOnClickListener {
             val contactNumber = worker.phone
             val dialIntent = Intent(Intent.ACTION_DIAL).apply {
@@ -113,6 +118,7 @@ class FragmentFullJobForClient : Fragment() {
 
 
         }
+
 
     }
 
@@ -143,6 +149,20 @@ class FragmentFullJobForClient : Fragment() {
         binding.detailsConfirmJob.finishJob.setOnClickListener {
             DAO.finishJob(job.id) { task ->
                 if (task.isSuccessful) {
+                    DAO.finishJobForWorker(job.selectedWorker, job.id) {
+                        if (it.isSuccessful) {
+                            DAO.finishJobForClient(job.owner, job.id) {
+                                if (it.isSuccessful) {
+                                    showAlertDialog(requireContext(), job.id, job.selectedWorker)
+                                } else {
+
+                                }
+                            }
+                        } else {
+
+                        }
+                    }
+
 
                 } else {
 

@@ -19,8 +19,10 @@ data class Worker(
     var photoUrl: String = "",
     var myOffers: MutableList<Offer>? = null,
     var rate: Float = 0f,
-    var newJobList: MutableList<String>? = null,
-    var currentJob: String = ""
+    var completeJobsList: MutableList<String>? = null,
+    var currentJob: String = "",
+    var chatRooms: MutableList<String>? = null,
+
 
 // TODO: my_Offers , current_Job , Clients_opinion
 

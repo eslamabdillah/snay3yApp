@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.sanay3yapp.databinding.FragmentAddJobBinding
+import com.example.sanay3yapp.ui.homeScreen.DialogDismissCallback
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Timestamp
 import dataBase.fireStore.DAO
@@ -53,13 +54,16 @@ class AddJobDialogFragment : BottomSheetDialogFragment() {
         if (SessionUser.currentUserType == "client") {
             DAO.addJobAndUpdateClient(newJob, SessionUser.client.id) {
                 Toast.makeText(context, "add job success", Toast.LENGTH_LONG)
+                dismissCallback?.onDialogDismissed()
                 dialog?.dismiss()
+
 
             }
         }
 
 
     }
+
 
     private fun validation(): Boolean {
         var flag = true
@@ -80,4 +84,12 @@ class AddJobDialogFragment : BottomSheetDialogFragment() {
         }
         return flag
     }
+
+    //call back
+    private var dismissCallback: DialogDismissCallback? = null
+    fun setDialogDismissCallback(callback: DialogDismissCallback) {
+        dismissCallback = callback
+    }
+
+
 }

@@ -7,19 +7,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentDetailsWorkerOfferBinding
+import com.example.sanay3yapp.ui.MainActivity
 import com.example.sanay3yapp.ui.SessionUser
 import com.example.sanay3yapp.ui.chat.ChatRoomActivity
+import com.example.sanay3yapp.ui.jobScreen.MessageDialogFragment
 import dataBase.fireStore.DAO
 import dataBase.models.ChatRoom
 import dataBase.models.Job
 import dataBase.models.Offer
 
-class DetailsOfferOfWorkerFragment : Fragment() {
+class DetailsOfferOfWorkerFragment : Fragment(), MessageDialogFragment.OnButtonClickListener {
     lateinit var binding: FragmentDetailsWorkerOfferBinding
     lateinit var currentOffer: Offer
     lateinit var currentJob: Job
@@ -60,6 +61,8 @@ class DetailsOfferOfWorkerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.detailsOffer.text = currentOffer?.details
 
+        binding.progressBar.visibility = View.GONE
+
         binding.call.setOnClickListener {
             val contactNumber = "01033242661"
             val dialIntent = Intent(Intent.ACTION_DIAL).apply {
@@ -72,20 +75,28 @@ class DetailsOfferOfWorkerFragment : Fragment() {
             //تفحص بعد مواققة العمل تتغير حالة الوظيفة
             //توضع فى الوظايف الحالية لكل من العامل والمستخدم
             //تحمل بعد ذلك لكل منهم
+            binding.progressBar.visibility = View.VISIBLE
             Log.d("currentJob id", currentJob.id)
             DAO.setConfirmedJob(currentOffer.id, currentOffer.workerId, currentJob.id) { fullTask ->
                 if (fullTask.isSuccessful) {
-                    DAO.updateConfirmJobForWorker(
-                        currentOffer.workerId,
-                        currentJob.id
-                    ) { workerTask ->
+                    Log.d("finally4", "reach to finally")
+
+                    DAO.updateConfirmJobForWorker(currentOffer.workerId, currentJob.id)
+                    { workerTask ->
                         if (workerTask.isSuccessful) {
+                            Log.d("finally3", "reach to finally")
+
                             DAO.updateConfirmJobForClient(
                                 currentJob.owner,
                                 currentJob.id
                             ) { clientTask ->
                                 if (clientTask.isSuccessful) {
-                                    Toast.makeText(context, "sucess", Toast.LENGTH_LONG)
+                                    Log.d("finally2", "reach to finally")
+
+                                    binding.progressBar.visibility = View.GONE
+                                    val dialog = MessageDialogFragment()
+                                    dialog.show(childFragmentManager, "تم توظيف العامل بنحاح")
+
                                 } else {
                                     //clientTask failed
                                 }
@@ -95,39 +106,71 @@ class DetailsOfferOfWorkerFragment : Fragment() {
                             //worker task failed
                         }
                     }
-
                 } else {
-                    //task for confirmed job failed
+
                 }
+
 
             }
 
-
         }
+
 
         binding.chat.setOnClickListener {
             Log.d("ChatButton", "Button clicked")
 
-            chatroom.id = currentOffer.id
-            chatroom.clientId = currentJob.owner
-            chatroom.workerId = currentOffer.workerId
-            chatroom.jobId = currentJob.id
-            DAO.makeChatRoom(chatroom) {
-                val intent = Intent(requireContext(), ChatRoomActivity::class.java)
-                intent.putExtra("ROOMID", currentOffer.id)
-                if (SessionUser.currentUserType == "worker") {
-                    intent.putExtra("ROOMNAME", currentOffer.workerId)
-                }
-                if (SessionUser.currentUserType == "client") {
-                    intent.putExtra("ROOMNAME", currentJob.owner)
+            val chatroom = ChatRoom().apply {
+                id = currentOffer.id
+                clientId = currentJob.owner
+                workerId = currentOffer.workerId
+                jobId = currentJob.id
+                jobName = currentJob.name
 
-                }
-                startActivity(intent)
             }
 
+            // Create the chat room
+            DAO.makeChatRoom(chatroom) { chatRoomResult ->
+                if (chatRoomResult.isSuccessful) {
+                    // Store chat room with client
+                    DAO.storeChatRoomWithClient(
+                        chatroom.id,
+                        SessionUser.client.id
+                    ) { clientResult ->
+                        if (clientResult.isSuccessful) {
+                            // Store chat room with worker
+                            DAO.storeChatRoomWithWorker(
+                                chatroom.id,
+                                currentOffer.workerId
+                            ) { workerResult ->
+                                if (workerResult.isSuccessful) {
+                                    // Prepare and start the chat room activity
+                                    val intent =
+                                        Intent(requireContext(), ChatRoomActivity::class.java)
+                                    intent.putExtra("ROOMID", currentOffer.id)
+                                    if (SessionUser.currentUserType == "worker") {
+                                        intent.putExtra("ROOMNAME", currentOffer.workerId)
+                                    }
+                                    if (SessionUser.currentUserType == "client") {
+                                        intent.putExtra("ROOMNAME", currentJob.owner)
 
+                                    }
+                                    startActivity(intent)
+                                } else {
+                                    Log.e("ChatButton", "Failed to store chat room with worker")
+                                    // Handle the error case
+                                }
+                            }
+                        } else {
+                            Log.e("ChatButton", "Failed to store chat room with client")
+                            // Handle the error case
+                        }
+                    }
+                } else {
+                    Log.e("ChatButton", "Failed to create chat room")
+                    // Handle the error case
+                }
+            }
         }
-
         binding.sanayeyDetails.workerDetails.setOnClickListener {
             val fragment = DetailsWorkerFragment.newInstance(currentOffer.workerId)
             childFragmentManager.beginTransaction()
@@ -135,6 +178,11 @@ class DetailsOfferOfWorkerFragment : Fragment() {
                 .commit()
         }
 
+    }
+
+    override fun onButtonClick() {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
     }
 
 
