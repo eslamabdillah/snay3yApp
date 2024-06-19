@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            >
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/fragment_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="الاكاديمية"
+                    android:textColor="@color/colorPrimaryExtraLight"
+                    android:textSize="30sp" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/workerType_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="سباكة "
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_margin="12dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="المهن المتوفرة"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:textColor="@color/colorSecondary"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/RecyclerViewThemeOverlay"
+            app:layout_constraintTop_toBottomOf="@id/search_container"
+            tools:listitem="@layout/item_worker"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            />
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
