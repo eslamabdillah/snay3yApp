@@ -1,5 +1,6 @@
 package com.example.sanay3yapp.ui.profileScreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.FragmentProfileWorkerBinding
 import com.example.sanay3yapp.ui.MainActivity
 import com.example.sanay3yapp.ui.SessionUser
+import com.example.sanay3yapp.ui.authentication_forms.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
     lateinit var binding: FragmentProfileWorkerBinding
@@ -22,7 +25,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileWorkerBinding.inflate(inflater, container, false)
         (activity as? MainActivity)?.changeFragmentTitle("حسابى")
-
         return binding.root
     }
 
@@ -58,6 +60,8 @@ class ProfileFragment : Fragment() {
         binding.clientsOpinions.setOnClickListener {
             loadChildFragment(FragmentClientsOpinions())
         }
+        binding.workerGallery.isVisible = false
+        binding.btnSignOut.setOnClickListener { signOut() }
     }
 
     private fun setupProfileWorker() {
@@ -74,13 +78,18 @@ class ProfileFragment : Fragment() {
             .error(R.drawable.logo)
             .into(binding.workerImage)
 
+
         binding.ratingBar.rating = SessionUser.worker.rate
         binding.clientsOpinions.setOnClickListener {
-            loadChildFragment(FragmentClientsOpinions())
+            val fragment = FragmentClientsOpinions.newInstance(SessionUser.worker.id)
+            loadChildFragment(fragment)
         }
         binding.workerGallery.setOnClickListener {
-            loadChildFragment(FragmentGallery())
+            val fragment = FragmentGallery.newInstance(SessionUser.worker.id)
+
+            loadChildFragment(fragment)
         }
+        binding.btnSignOut.setOnClickListener { signOut() }
 
 
     }
@@ -89,6 +98,18 @@ class ProfileFragment : Fragment() {
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.profile_container, childFragment)
         transaction.commit()
+    }
+
+    private fun signOut() {
+        val firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth.signOut()
+        SessionUser.mode = false
+        SessionUser.currentUserType = ""
+        val context = requireContext()  // Ensure the context is non-null
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+        activity?.finish()  // Optional: Finish the parent activity to remove it from the back stack
     }
 
 

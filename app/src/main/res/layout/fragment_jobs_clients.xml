@@ -13,6 +13,64 @@
         android:layout_height="match_parent"
         tools:context=".ui.homeScreen.HomeFragment">
 
+        <LinearLayout
+            android:id="@+id/types_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/compelte_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/work_now_job_background"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:text="مكتملة"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+
+                />
+
+            <TextView
+                android:id="@+id/now_jobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/work_now_job_background"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:text="تعمل الان"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+
+
+                />
+
+            <TextView
+                android:id="@+id/new_jobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/work_now_job_background"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:text="جديدة"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+
+
+                />
+
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_inWorkJobs"
@@ -20,12 +78,30 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:theme="@style/RecyclerViewThemeOverlay"
+            app:layout_constraintTop_toBottomOf="@id/types_jobs"
 
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_job" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/txt_notJobs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="لا توجد وظائف بعد"
+        android:textSize="28sp" />
+
 
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.example.sanay3yapp.ui.offerScreen
+package com.example.sanay3yapp.ui.jobScreen
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.sanay3yapp.R
 import dataBase.models.Offer
 
-class MyOfferAdapter(var offersList: MutableList<Offer>? = null) :
-    RecyclerView.Adapter<MyOfferAdapter.MyOffersViewHolder>() {
+class OffersWorkerAdapter(var offersList: MutableList<Offer>? = null) :
+    RecyclerView.Adapter<OffersWorkerAdapter.MyOffersViewHolder>() {
 
     class MyOffersViewHolder(var view: View) : ViewHolder(view) {
         var offerCost: TextView = view.findViewById(R.id.offer_cost)
@@ -40,11 +40,23 @@ class MyOfferAdapter(var offersList: MutableList<Offer>? = null) :
     override fun onBindViewHolder(holder: MyOffersViewHolder, position: Int) {
         var currentOffer = offersList!![position]
         holder.bindData(currentOffer)
+        if (listener != null) {
+            holder.itemView.setOnClickListener {
+                listener?.onItemClick(currentOffer)
+            }
+        }
     }
 
     fun bindList(newList: MutableList<Offer>) {
         offersList = newList
         notifyDataSetChanged()
     }
+
+    var listener: OnItemClickListener? = null
+
+    fun interface OnItemClickListener {
+        fun onItemClick(offer: Offer)
+    }
+
 
 }

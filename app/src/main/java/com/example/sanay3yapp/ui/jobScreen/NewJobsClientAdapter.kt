@@ -1,4 +1,4 @@
-package com.example.sanay3yapp.ui.offerScreen
+package com.example.sanay3yapp.ui.jobScreen
 
 import android.view.LayoutInflater
 import android.view.View

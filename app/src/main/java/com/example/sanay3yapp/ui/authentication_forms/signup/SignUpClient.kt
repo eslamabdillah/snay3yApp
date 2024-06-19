@@ -68,6 +68,7 @@ class SignUpClient : AppCompatActivity() {
                     client.id = task.result.user?.uid.toString()
                     DAO.addNewClient(client) {
                         Toast.makeText(this, "sucess add", Toast.LENGTH_LONG).show()
+
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                     }

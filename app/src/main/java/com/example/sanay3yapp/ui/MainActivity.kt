@@ -8,7 +8,7 @@ import com.example.sanay3yapp.databinding.ActivityMainBinding
 import com.example.sanay3yapp.ui.dailyScreen.DailyFragment
 import com.example.sanay3yapp.ui.homeScreen.HomeFragment
 import com.example.sanay3yapp.ui.jobScreen.JobFragment
-import com.example.sanay3yapp.ui.offerScreen.OfferFragment
+import com.example.sanay3yapp.ui.offerScreen.ChatFragment
 import com.example.sanay3yapp.ui.profileScreen.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_offer -> {
-                    showFragmentSelected(OfferFragment())
+                    showFragmentSelected(ChatFragment())
                     true
                 }
 

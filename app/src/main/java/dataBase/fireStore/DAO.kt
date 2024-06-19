@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -21,6 +22,7 @@ import com.google.firebase.storage.ktx.storage
 import dataBase.models.ChatRoom
 import dataBase.models.Client
 import dataBase.models.ClientOpinion
+import dataBase.models.Complaint
 import dataBase.models.DailyWorker
 import dataBase.models.GallaryProject
 import dataBase.models.Job
@@ -30,7 +32,8 @@ import dataBase.models.Worker
 
 
 object DAO {
-    private val db = Firebase.firestore
+    public val db = Firebase.firestore
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
 
     fun getAllWorkers(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
@@ -112,10 +115,19 @@ object DAO {
             throw IllegalArgumentException("Invalid ID for the worker.")
         } else {
             // Proceed with setting the document in Firestore
-            db.collection("workers")
+
+            val workerRef = db.collection("workers")
                 .document(newWorker.id)
-                .set(newWorker)
-                .addOnCompleteListener(onCompleteListener)
+
+            val addOneRef = db.collection("admins")
+                .document("appInformation")
+
+            workerRef.set(newWorker).addOnSuccessListener({
+                addOneRef.update("numWorkers", FieldValue.increment(1))
+                    .addOnCompleteListener(onCompleteListener)
+
+            })
+                .addOnFailureListener({})
         }
     }
 
@@ -128,10 +140,22 @@ object DAO {
             throw IllegalArgumentException("Invalid ID for the worker.")
         } else {
             // Proceed with setting the document in Firestore
-            db.collection("dailyWorkers")
+
+
+            val dailyWorkerRef = db.collection("dailyWorkers")
                 .document(newDailyWorker.id)
+
+            val addOneRef = db.collection("admins")
+                .document("appInformation")
+
+
+            dailyWorkerRef
                 .set(newDailyWorker)
-                .addOnCompleteListener(onCompleteListener)
+                .addOnSuccessListener({
+                    addOneRef.update("numDailyWorkers", FieldValue.increment(1))
+                        .addOnCompleteListener(onCompleteListener)
+                })
+                .addOnFailureListener({})
         }
     }
 
@@ -141,10 +165,19 @@ object DAO {
             throw IllegalArgumentException("Invalid ID for the worker.")
         } else {
             // Proceed with setting the document in Firestore
-            db.collection("clients")
+            val newClientRef = db.collection("clients")
                 .document(newClient.id)
-                .set(newClient)
-                .addOnCompleteListener(onCompleteListener)
+
+            val addOneRef = db.collection("admins")
+                .document("appInformation")
+
+            newClientRef.set(newClient)
+                .addOnSuccessListener({
+                    addOneRef.update("numClients", FieldValue.increment(1))
+                        .addOnCompleteListener(onCompleteListener)
+                })
+                .addOnFailureListener({})
+
         }
     }
 
@@ -187,6 +220,16 @@ object DAO {
 
 
         }
+    }
+
+    fun incrementJob(
+        addOnCompleteListener: OnCompleteListener<Void>
+    ) {
+        val incrementJobRef = db.collection("admins")
+            .document("appInformation")
+
+        incrementJobRef.update("numJobs", FieldValue.increment(1))
+            .addOnCompleteListener(addOnCompleteListener)
     }
 
     fun addOfferInJob(
@@ -236,6 +279,20 @@ object DAO {
             .get()
             .addOnCompleteListener(onCompleteListener)
 
+    }
+
+    fun addClientOpinion(
+        workerId: String,
+        opinion: ClientOpinion,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val workerRef = db.collection("workers")
+            .document(workerId)
+            .collection("clientsOpinions")
+            .document()
+
+        opinion.id = workerRef.id
+        workerRef.set(opinion).addOnCompleteListener(onCompleteListener)
     }
 
     fun setClientOpinionForWorker(
@@ -304,9 +361,36 @@ object DAO {
 
         clientRef.update("inWorkJob", FieldValue.arrayUnion(jobId))
             .addOnSuccessListener({
-                clientRef.update("myJobs", FieldValue.arrayRemove(jobId))
+                clientRef.update("newJobs", FieldValue.arrayRemove(jobId))
                     .addOnCompleteListener(onCompleteListener)
             })
+    }
+
+    fun makeOfferAcceptableForJob(
+        jobId: String,
+        offerId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val offerRef = db.collection("jobs")
+            .document(jobId)
+            .collection("workersOffers")
+            .document(offerId)
+
+        offerRef.update("state", "accept")
+            .addOnCompleteListener(onCompleteListener)
+    }
+
+    fun makeOfferAcceptableForWorker(
+        workerId: String,
+        offerId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val offerRef = db.collection("workers").document(workerId)
+            .collection("myOffers").document(offerId)
+
+        offerRef.update("state", "accept")
+
+
     }
 
     fun updateConfirmJobForWorker(
@@ -316,8 +400,7 @@ object DAO {
     ) {
         var workerRef = db.collection("workers")
             .document(workerId)
-
-        workerRef.update("currentJob", jobId)
+            .update("currentJob", jobId)
             .addOnCompleteListener(onCompleteListener)
     }
 
@@ -365,6 +448,46 @@ object DAO {
         }
     }
 
+    fun getCompleteJobArray(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val completeJobs =
+                    document.data?.get("completeJobs") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(completeJobs))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
+    fun getCompleteJobArrayForWorker(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("workers")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val completeJobs =
+                    document.data?.get("completeJobsList") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(completeJobs))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
     fun getNewJobsForClient(
         clientId: String,
         onCompleteListener: (Result<List<String>>) -> Unit
@@ -382,6 +505,70 @@ object DAO {
         }.addOnFailureListener {
 
         }
+    }
+
+    fun getCompleteJobsForClient(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                var newList = document.data?.get("completeJobs") as List<String>
+                onCompleteListener(Result.success(newList))
+
+            }
+
+        }.addOnFailureListener {
+
+        }
+    }
+
+    fun finishJob(
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val jobRef = db.collection("jobs")
+            .document(jobId)
+
+        jobRef.update("state", StatesJob.FINISHED).addOnCompleteListener(onCompleteListener)
+
+    }
+
+    // TODO: kkkkkkkkkkkkkkkk
+    fun finishJobForWorker(
+        workerId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val workerRef = db.collection("workers")
+            .document(workerId)
+
+        workerRef.update("completeJobsList", FieldValue.arrayUnion(jobId))
+            .addOnSuccessListener({
+                workerRef.update("currentJob", "")
+                    .addOnCompleteListener(onCompleteListener)
+            })
+            .addOnFailureListener({})
+
+    }
+
+    fun finishJobForClient(
+        clientId: String,
+        jobId: String,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.update("inWorkJob", FieldValue.arrayRemove(jobId))
+            .addOnSuccessListener({
+                clientRef.update("completeJobs", FieldValue.arrayUnion(jobId))
+                    .addOnCompleteListener(onCompleteListener)
+            })
+            .addOnFailureListener({})
     }
 
     fun uploadPhotosToProjectFolder(
@@ -487,6 +674,30 @@ object DAO {
 
     }
 
+    fun storeChatRoomWithClient(
+        chatRoomId: String,
+        clientId: String,
+        onCompleteListener: OnCompleteListener<Void>
+
+    ) {
+        db.collection("clients").document(clientId)
+            .update("chatRooms", FieldValue.arrayUnion(chatRoomId))
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun storeChatRoomWithWorker(
+        chatRoomId: String,
+        workerId: String,
+        onCompleteListener: OnCompleteListener<Void>
+
+    ) {
+        db.collection("workers").document(workerId)
+            .update("chatRooms", FieldValue.arrayUnion(chatRoomId))
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
     fun sendMessage(
         message: Message,
         chatRoomId: String,
@@ -538,6 +749,91 @@ object DAO {
         }
 
 
+    }
+
+    fun getChatRoom(
+        roomId: String,
+        onCompleteListener: OnCompleteListener<DocumentSnapshot>
+    ) {
+        var doucRef = db.collection("chats").document(roomId)
+            .get().addOnCompleteListener(onCompleteListener)
+    }
+
+    fun getChatRoomsArrayForClient(
+        clientId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val clientRef = db.collection("clients")
+            .document(clientId)
+
+        clientRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val chatrooms = document.data?.get("chatRooms") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(chatrooms))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
+    fun getChatRoomsArrayForWorker(
+        workerId: String,
+        onCompleteListener: (Result<List<String>>) -> Unit
+    ) {
+        val workerRef = db.collection("workers")
+            .document(workerId)
+
+        workerRef.get().addOnSuccessListener { document ->
+            if (document.exists() && document != null) {
+                val chatrooms = document.data?.get("chatRooms") as? List<String> ?: emptyList()
+                onCompleteListener(Result.success(chatrooms))
+            } else {
+                onCompleteListener(Result.success(emptyList()))
+            }
+        }.addOnFailureListener { exception ->
+            onCompleteListener(Result.failure(exception))
+        }
+    }
+
+    fun signOut(onCompleteListener: OnCompleteListener<Void>) {
+        firebaseAuth.signOut().apply { onCompleteListener }
+    }
+
+
+    //admin functions////////////////////////////////////////////////
+    fun getAdmin(
+        adminId: String,
+        onCompleteListener: OnCompleteListener<DocumentSnapshot>
+    ) {
+        val adminRef = db.collection("admins")
+            .document(adminId)
+            .get()
+            .addOnCompleteListener(onCompleteListener)
+
+    }
+
+    fun getInfoApp(
+        onCompleteListener: OnCompleteListener<DocumentSnapshot>
+    ) {
+        val infoRef = db.collection("admins")
+            .document("appInformation")
+            .get()
+            .addOnCompleteListener(onCompleteListener)
+    }
+
+    //complaint //////////////////////////////////////////////////////
+    fun sendComplaint(
+        newComplaint: Complaint,
+        onCompleteListener: OnCompleteListener<Void>
+    ) {
+        val complaintRef = db.collection("complaints")
+            .document()
+        newComplaint.id = complaintRef.id
+
+        complaintRef.set(newComplaint)
+            .addOnCompleteListener(onCompleteListener)
     }
 
 

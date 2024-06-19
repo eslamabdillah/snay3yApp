@@ -18,12 +18,29 @@ class FragmentGallery : Fragment() {
     lateinit var adapter: ProjectsAdapter
     private var projectsList = mutableListOf<GallaryProject>()
 
+    var workerId = ""
+
+    companion object {
+        fun newInstance(workerID: String): FragmentGallery {
+            val args = Bundle().apply {
+                putString("workerId", workerID)
+            }
+            val fragment = FragmentGallery()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        workerId = arguments?.getString("workerId") ?: ""
+        if (SessionUser.currentUserType == "client") {
+            binding.addProject.visibility = View.GONE
+        }
         return binding.root
     }
 
@@ -41,7 +58,7 @@ class FragmentGallery : Fragment() {
     }
 
     private fun downloadProjectForWorker() {
-        DAO.getProjectForWorker(SessionUser.worker.id) { task ->
+        DAO.getProjectForWorker(workerId) { task ->
             if (task.isSuccessful) {
                 // Optionally clear the list to avoid duplicates
                 projectsList.clear()

@@ -1,5 +1,6 @@
 package com.example.sanay3yapp.ui
 
+import dataBase.models.Admin
 import dataBase.models.Client
 import dataBase.models.Worker
 
@@ -8,4 +9,5 @@ object SessionUser {
     var currentUserType = ""
     var worker = Worker()
     var client = Client()
+    var admin = Admin()
 }
