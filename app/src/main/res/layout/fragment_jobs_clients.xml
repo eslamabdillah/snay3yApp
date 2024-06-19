@@ -95,5 +95,13 @@
         android:indeterminate="true"
         android:padding="16dp" />
 
+    <TextView
+        android:id="@+id/txt_notJobs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="لا توجد وظائف بعد"
+        android:textSize="28sp" />
+
 
 </FrameLayout>

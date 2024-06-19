@@ -36,8 +36,13 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recyclerview.visibility = View.GONE
+        binding.txtNotJobs.visibility = View.GONE
         setupRecyclerView()
         if (SessionUser.currentUserType == "client") {
+
             downloadDataForClient()
 
         }
@@ -80,6 +85,7 @@ class ChatFragment : Fragment() {
                 if (roomsList.isEmpty()) {
                     // No jobs to load, update UI accordingly
                     changeListAdapterCompleteJobs()
+
                 } else {
                     roomsList.forEach { roomId ->
                         DAO.getChatRoom(roomId) { task ->
@@ -143,7 +149,17 @@ class ChatFragment : Fragment() {
     }
 
     private fun changeListAdapterCompleteJobs() {
-        chatAdapter.changeListAdapter(chatrooms)
+        if (chatrooms.isEmpty()) {
+            binding.progressBar.visibility = View.GONE
+            binding.recyclerview.visibility = View.GONE
+            binding.txtNotJobs.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.recyclerview.visibility = View.VISIBLE
+            binding.txtNotJobs.visibility = View.GONE
+            chatAdapter.changeListAdapter(chatrooms)
+
+        }
     }
 
 

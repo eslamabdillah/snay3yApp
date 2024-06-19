@@ -28,6 +28,8 @@ class ChatRoomActivity : AppCompatActivity() {
         binding = ActivityChatRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         roomId = intent.getStringExtra("ROOMID") ?: ""
         roomName = intent.getStringExtra("ROOMNAME") ?: "اسم"
 
@@ -45,10 +47,13 @@ class ChatRoomActivity : AppCompatActivity() {
                 message.ownerType = "worker"
                 message.ownerId = SessionUser.worker.id
 
+
             }
             if (SessionUser.currentUserType == "client") {
                 message.ownerType = "client"
                 message.ownerId = SessionUser.client.id
+
+
             }
 
             DAO.sendMessage(message, roomId) {
@@ -78,6 +83,7 @@ class ChatRoomActivity : AppCompatActivity() {
                                     val worker = task.result.toObject(Worker::class.java)
                                     binding.chatTitle.text = worker!!.name
                                     Log.d("personName", worker.name)
+
 
                                 } else {
 
