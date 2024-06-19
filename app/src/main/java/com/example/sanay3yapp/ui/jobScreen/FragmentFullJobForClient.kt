@@ -171,5 +171,13 @@ class FragmentFullJobForClient : Fragment() {
             }
         }
 
+        binding.detailsConfirmJob.makeComplaint.setOnClickListener {
+            val intent = Intent(requireContext(), ActivityComplaint::class.java)
+            intent.putExtra("JOB_ID", job.id)
+            startActivity(intent)
+
+        }
+
+
     }
 }

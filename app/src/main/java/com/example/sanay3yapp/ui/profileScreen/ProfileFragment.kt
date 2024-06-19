@@ -103,6 +103,8 @@ class ProfileFragment : Fragment() {
     private fun signOut() {
         val firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.signOut()
+        SessionUser.mode = false
+        SessionUser.currentUserType = ""
         val context = requireContext()  // Ensure the context is non-null
         val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

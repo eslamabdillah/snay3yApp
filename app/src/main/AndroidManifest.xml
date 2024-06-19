@@ -19,6 +19,9 @@
             android:name=".ui.authentication_forms.choose_login_signup.Choose_login_signupActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.jobScreen.ActivityComplaint"
+            android:exported="false" />
+        <activity
             android:name=".ui.jobScreen.AddClientOpinion"
             android:exported="false" />
         <activity
@@ -26,6 +29,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.authentication_forms.login.LoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.admin.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Academy.AcademyActivity"

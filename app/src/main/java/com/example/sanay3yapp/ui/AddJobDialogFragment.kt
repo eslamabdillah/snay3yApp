@@ -52,10 +52,22 @@ class AddJobDialogFragment : BottomSheetDialogFragment() {
 
     private fun addJobToDatabase() {
         if (SessionUser.currentUserType == "client") {
-            DAO.addJobAndUpdateClient(newJob, SessionUser.client.id) {
-                Toast.makeText(context, "add job success", Toast.LENGTH_LONG)
-                dismissCallback?.onDialogDismissed()
-                dialog?.dismiss()
+            DAO.addJobAndUpdateClient(newJob, SessionUser.client.id) { task ->
+                if (task.isSuccessful) {
+
+                    DAO.incrementJob({
+                        if (it.isSuccessful) {
+                            Toast.makeText(context, "add job success", Toast.LENGTH_LONG)
+                            dismissCallback?.onDialogDismissed()
+                            dialog?.dismiss()
+                        } else {
+
+                        }
+
+                    })
+
+                } else {
+                }
 
 
             }

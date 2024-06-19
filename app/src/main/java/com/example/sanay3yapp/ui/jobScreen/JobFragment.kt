@@ -65,8 +65,12 @@ class JobFragment : Fragment() {
 
             bindingClient.progressBar.visibility = View.VISIBLE
             bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+            bindingClient.txtNotJobs.visibility = View.GONE
+
+
 
             bindingClient.nowJobs.setOnClickListener {
+                bindingClient.txtNotJobs.visibility = View.GONE
                 bindingClient.progressBar.visibility = View.VISIBLE
                 bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
 
@@ -80,6 +84,8 @@ class JobFragment : Fragment() {
             bindingClient.newJobs.setOnClickListener {
                 bindingClient.progressBar.visibility = View.VISIBLE
                 bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+                bindingClient.txtNotJobs.visibility = View.GONE
+
                 bindingClient.newJobs.setBackgroundResource(R.drawable.compelete_job_background)
                 bindingClient.nowJobs.setBackgroundResource(R.drawable.work_now_job_background)
                 bindingClient.compelteJob.setBackgroundResource(R.drawable.work_now_job_background)
@@ -93,6 +99,8 @@ class JobFragment : Fragment() {
             bindingClient.compelteJob.setOnClickListener {
                 bindingClient.progressBar.visibility = View.VISIBLE
                 bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+                bindingClient.txtNotJobs.visibility = View.GONE
+
                 bindingClient.compelteJob.setBackgroundResource(R.drawable.compelete_job_background)
                 bindingClient.nowJobs.setBackgroundResource(R.drawable.work_now_job_background)
                 bindingClient.newJobs.setBackgroundResource(R.drawable.work_now_job_background)
@@ -105,9 +113,21 @@ class JobFragment : Fragment() {
 
 
         } else if (SessionUser.currentUserType == "worker") {
-
+            binding.progressBar.visibility = View.VISIBLE
+            binding.workerRecyclerView.visibility = View.GONE
+            binding.txtNotJobs.visibility = View.GONE
+            binding.restJobScreen.visibility = View.GONE
+            binding.detailsConfirmJob.finishJob.visibility = View.GONE
 
             binding.nowJobs.setOnClickListener {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.workerRecyclerView.visibility = View.GONE
+                binding.txtNotJobs.visibility = View.GONE
+
+                binding.offers.setBackgroundResource(R.drawable.work_now_job_background)
+                binding.compelteJob.setBackgroundResource(R.drawable.work_now_job_background)
+                binding.nowJobs.setBackgroundResource(R.drawable.compelete_job_background)
+
                 DAO.getWorker(SessionUser.worker.id) { task ->
                     if (task.isSuccessful) {
                         val worker = task.result.toObject(Worker::class.java)
@@ -116,10 +136,11 @@ class JobFragment : Fragment() {
                         ) {
                             binding.restJobScreen.visibility = View.GONE
                             binding.workerRecyclerView.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
+                            binding.txtNotJobs.visibility = View.VISIBLE
 
                         } else {
-                            binding.restJobScreen.visibility = View.VISIBLE
-                            binding.workerRecyclerView.visibility = View.GONE
+
                             setupViewForWorker()
                         }
 
@@ -133,10 +154,17 @@ class JobFragment : Fragment() {
             }
 
             binding.compelteJob.setOnClickListener {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.workerRecyclerView.visibility = View.GONE
+                binding.txtNotJobs.visibility = View.GONE
+
+                binding.nowJobs.setBackgroundResource(R.drawable.work_now_job_background)
+                binding.offers.setBackgroundResource(R.drawable.work_now_job_background)
+                binding.compelteJob.setBackgroundResource(R.drawable.compelete_job_background)
+
 
                 completeJobsList.clear()
-                binding.workerRecyclerView.visibility = View.VISIBLE
-                binding.restJobScreen.visibility = View.GONE
+
                 setupAdapterCompleteJobsForWorker()
                 downloadCompleteJobsDataForWorker()
 
@@ -144,8 +172,14 @@ class JobFragment : Fragment() {
             }
 
             binding.offers.setOnClickListener {
-                binding.workerRecyclerView.visibility = View.VISIBLE
-                binding.restJobScreen.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+                binding.workerRecyclerView.visibility = View.GONE
+                binding.txtNotJobs.visibility = View.GONE
+
+                binding.nowJobs.setBackgroundResource(R.drawable.work_now_job_background)
+                binding.compelteJob.setBackgroundResource(R.drawable.work_now_job_background)
+                binding.offers.setBackgroundResource(R.drawable.compelete_job_background)
+
                 setupAdapterOffers()
                 downloadListOffers()
             }
@@ -186,7 +220,12 @@ class JobFragment : Fragment() {
 
                 if (jobList.isEmpty()) {
                     // No jobs to load, update UI accordingly
+
                     changeListAdapter()
+                    bindingClient.txtNotJobs.visibility = View.VISIBLE
+                    bindingClient.progressBar.visibility = View.GONE
+                    bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+
                 } else {
                     jobList.forEach { jobId ->
                         DAO.getJob(jobId) { task ->
@@ -204,8 +243,7 @@ class JobFragment : Fragment() {
                                 Log.d("inworkjobAfterLoadData", inWorkJobsList.toString())
 
                                 changeListAdapter()
-                                bindingClient.progressBar.visibility = View.GONE
-                                bindingClient.recyclerViewInWorkJobs.visibility = View.VISIBLE
+
                             }
                         }
                     }
@@ -271,7 +309,12 @@ class JobFragment : Fragment() {
                     "الميزانية :" + agreement.offer.cost.toString() + " جنيه"
                 binding.detailsConfirmJob.duration.text =
                     "المدة :" + agreement.offer.duration.toString() + "يوم"
+
                 binding.fullJob.isVisible = true
+                binding.restJobScreen.visibility = View.VISIBLE
+                binding.workerRecyclerView.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+                binding.txtNotJobs.visibility = View.GONE
             } else {
 
             }
@@ -281,10 +324,20 @@ class JobFragment : Fragment() {
     }
 
     private fun changeListAdapter() {
-        /*val filterList = inWorkJobsList.filter { job ->
-            job.state == "inWork"
-        }*/
-        inWorkAdapter.changeListAdapter(inWorkJobsList)
+
+
+        if (inWorkJobsList.isEmpty()) {
+            inWorkAdapter.changeListAdapter(inWorkJobsList)
+            bindingClient.progressBar.visibility = View.GONE
+            bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+            bindingClient.txtNotJobs.visibility = View.VISIBLE
+        } else {
+            inWorkAdapter.changeListAdapter(inWorkJobsList)
+            bindingClient.progressBar.visibility = View.GONE
+            bindingClient.recyclerViewInWorkJobs.visibility = View.VISIBLE
+            bindingClient.txtNotJobs.visibility = View.GONE
+        }
+
     }
 
 
@@ -328,6 +381,9 @@ class JobFragment : Fragment() {
                     Log.d("newJobs", "empty")
 
                     changeListAdapter()
+                    bindingClient.progressBar.visibility = View.GONE
+                    bindingClient.txtNotJobs.visibility = View.VISIBLE
+
                 } else {
                     jobList.forEach { jobId ->
                         DAO.getJob(jobId) { task ->
@@ -375,8 +431,43 @@ class JobFragment : Fragment() {
     }
 
 
+    //dede
     private fun changeListAdapterCompleteJobs() {
-        completeJobAdapter.changeListAdapter(completeJobsList)
+
+        if (completeJobsList.isEmpty()) {
+            completeJobAdapter.changeListAdapter(completeJobsList)
+            bindingClient.progressBar.visibility = View.GONE
+            bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+            bindingClient.txtNotJobs.visibility = View.VISIBLE
+        } else {
+            completeJobAdapter.changeListAdapter(completeJobsList)
+            bindingClient.progressBar.visibility = View.GONE
+            bindingClient.recyclerViewInWorkJobs.visibility = View.VISIBLE
+            bindingClient.txtNotJobs.visibility = View.GONE
+        }
+
+
+    }
+
+    private fun changeListAdapterCompleteJobsForWorker() {
+
+        if (completeJobsList.isEmpty()) {
+            completeJobAdapter.changeListAdapter(completeJobsList)
+
+            binding.restJobScreen.visibility = View.GONE
+            binding.workerRecyclerView.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
+            binding.txtNotJobs.visibility = View.VISIBLE
+        } else {
+
+            completeJobAdapter.changeListAdapter(completeJobsList)
+            binding.restJobScreen.visibility = View.GONE
+            binding.workerRecyclerView.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+            binding.txtNotJobs.visibility = View.GONE
+        }
+
+
     }
 
     private fun downloadCompleteJobsData() {
@@ -388,6 +479,10 @@ class JobFragment : Fragment() {
                 if (jobList.isEmpty()) {
                     // No jobs to load, update UI accordingly
                     changeListAdapterCompleteJobs()
+                    bindingClient.progressBar.visibility = View.GONE
+                    bindingClient.txtNotJobs.visibility = View.VISIBLE
+                    bindingClient.recyclerViewInWorkJobs.visibility = View.GONE
+
                 } else {
                     jobList.forEach { jobId ->
                         DAO.getJob(jobId) { task ->
@@ -404,8 +499,7 @@ class JobFragment : Fragment() {
                                 // Only update the adapter when all jobs have been loaded
                                 Log.d("inworkjobAfterLoadData", inWorkJobsList.toString())
                                 changeListAdapterCompleteJobs()
-                                bindingClient.progressBar.visibility = View.GONE
-                                bindingClient.recyclerViewInWorkJobs.visibility = View.VISIBLE
+
                             }
                         }
                     }
@@ -438,13 +532,20 @@ class JobFragment : Fragment() {
 
                 if (jobList.isEmpty()) {
                     // No jobs to load, update UI accordingly
-                    changeListAdapterCompleteJobs()
+                    changeListAdapterCompleteJobsForWorker()
+                    binding.restJobScreen.visibility = View.GONE
+                    binding.workerRecyclerView.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    binding.txtNotJobs.visibility = View.VISIBLE
+
+
                 } else {
                     jobList.forEach { jobId ->
                         DAO.getJob(jobId) { task ->
                             if (task.isSuccessful) {
                                 task.result.toObject<Job>()?.let { job ->
                                     completeJobsList.add(job)
+
                                 }
                             } else {
                                 Log.e("JobLoadError", "Failed to load job")
@@ -455,7 +556,7 @@ class JobFragment : Fragment() {
                                 // Only update the adapter when all jobs have been loaded
                                 Log.d("inworkjobAfterLoadData", inWorkJobsList.toString())
                                 binding.restJobScreen.isVisible = false
-                                changeListAdapterCompleteJobs()
+                                changeListAdapterCompleteJobsForWorker()
                             }
                         }
                     }
@@ -483,7 +584,16 @@ class JobFragment : Fragment() {
         DAO.getOffersforWorker(workerId) { task ->
             if (task.isSuccessful) {
                 var offersListt = task.result?.toObjects(Offer::class.java) ?: emptyList()
-                changerListOffers(offersListt.toMutableList())
+                if (offersListt.isEmpty()) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.txtNotJobs.visibility = View.VISIBLE
+
+                } else {
+                    changerListOffers(offersListt.toMutableList())
+                    binding.workerRecyclerView.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                }
+
             } else {
                 Log.e("downloadList", "Error getting documents: ", task.exception)
             }
@@ -491,6 +601,10 @@ class JobFragment : Fragment() {
     }
 
     private fun changerListOffers(newList: MutableList<Offer>) {
+
+        newList.sortByDescending { it.date }
+
+
         offersAdapter.bindList(newList)
     }
 

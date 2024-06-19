@@ -16,6 +16,7 @@ import com.google.firebase.firestore.toObject
 import dataBase.fireStore.DAO
 import dataBase.models.Job
 import dataBase.models.Offer
+import dataBase.models.Worker
 
 class DetailsJobFragment : Fragment(), DialogDismissCallback {
 
@@ -76,6 +77,23 @@ class DetailsJobFragment : Fragment(), DialogDismissCallback {
 
 
                 })
+
+                DAO.getWorker(SessionUser.worker.id) { task ->
+                    if (task.isSuccessful) {
+                        var currentWorker = task.result.toObject<Worker>()
+                        if (currentWorker!!.currentJob != "") {
+                            Toast.makeText(
+                                context,
+                                "يجب انهاء الوظيفة التى تعمل عليها",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            enableGiveOffer = false
+                        }
+                    } else {
+
+                    }
+
+                }
             } else {
 
             }
