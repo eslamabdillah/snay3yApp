@@ -122,16 +122,6 @@
         </LinearLayout>
 
 
-
-        <ImageView
-            android:id="@+id/logOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:layout_margin="24dp"
-            android:layout_gravity="center"
-            android:background="@drawable/compelete_job_background"/>
-
     </LinearLayout>
 
 </ScrollView>

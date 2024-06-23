@@ -63,6 +63,7 @@ class AddJobDialogFragment : BottomSheetDialogFragment() {
         newJob.cost = binding.jobCost.text.toString().toInt()
         newJob.owner = SessionUser.client.id
         newJob.date = Timestamp.now()
+        newJob.ownerName = SessionUser.client.name
 
 
     }

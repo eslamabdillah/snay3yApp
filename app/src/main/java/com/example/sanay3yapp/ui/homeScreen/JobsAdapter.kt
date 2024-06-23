@@ -14,13 +14,17 @@ import dataBase.models.Job
 class JobsAdapter(var offerList: MutableList<Job>?) :
     RecyclerView.Adapter<JobsAdapter.OfferViewHolder>() {
     class OfferViewHolder(view: View) : ViewHolder(view) {
+
         private val name: TextView = view.findViewById(R.id.job_name)
         private val details: TextView = view.findViewById(R.id.details)
         private val cost: TextView = view.findViewById(R.id.cost)
         private val duration: TextView = view.findViewById(R.id.duration)
         private val date: TextView = view.findViewById(R.id.date)
+        private val owner: TextView = view.findViewById(R.id.name_owner)
+
 
         fun bindData(currentJob: Job) {
+            owner.text = currentJob.ownerName
             name.text = currentJob.name
             details.text = currentJob.details
             cost.text = currentJob.cost.toString()

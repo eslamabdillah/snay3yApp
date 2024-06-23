@@ -17,9 +17,9 @@ class OffersWorkerAdapter(var offersList: MutableList<Offer>? = null) :
         var offerDetails: TextView = view.findViewById(R.id.offer_details)
         var offerDuration: TextView = view.findViewById(R.id.offer_duration)
         fun bindData(newOffer: Offer) {
-            offerCost.text = newOffer.cost.toString()
+            offerCost.text = "التكلفة : ${newOffer.cost.toString()} جنيه"
             offerDetails.text = newOffer.details
-            offerDuration.text = newOffer.duration.toString()
+            offerDuration.text = "المدة : ${newOffer.duration.toString()} يوم"
 
 
         }

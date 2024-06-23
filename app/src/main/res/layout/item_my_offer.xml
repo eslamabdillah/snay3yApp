@@ -4,62 +4,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@color/colorSecondaryLight"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="12dp">
+    android:layout_margin="1dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/worker_image"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/offer_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:text="عرض وظيفة"
+            android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/worker_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="اسلام احمد"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/worker_image"
-            app:layout_constraintEnd_toStartOf="@id/worker_image"
-            app:layout_constraintTop_toTopOf="@id/worker_image" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="ا12 / 10 / 2024"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/worker_image"
-            app:layout_constraintEnd_toStartOf="@id/worker_image"
-            app:layout_constraintTop_toTopOf="@id/name_worker_item" />
 
         <TextView
             android:id="@+id/offer_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="2"
+            android:layout_marginTop="4dp"
             android:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
             android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@id/worker_image" />
+            app:layout_constraintTop_toBottomOf="@id/offer_name" />
 
         <View
             android:id="@+id/line"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
+            android:background="#676767"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/offer_details"
@@ -73,6 +52,7 @@
             android:text="الميزانية : 1000 جنيه"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/offer_duration"
             app:layout_constraintTop_toBottomOf="@id/line" />
 
         <TextView
@@ -82,21 +62,9 @@
             android:layout_margin="10dp"
             android:text="المدة : 10 ايام"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@id/offer_cost"
-            app:layout_constraintTop_toBottomOf="@id/offer_cost"
-
-            />
-
-        <Button
-            android:id="@+id/readMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorSecondary"
-            android:text="روية المزيد"
-            app:layout_constraintBottom_toBottomOf="@id/offer_duration"
-            app:layout_constraintEnd_toStartOf="@id/offer_cost"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/offer_cost" />
+            app:layout_constraintTop_toBottomOf="@id/line"
+            app:layout_constraintEnd_toStartOf="@id/offer_cost" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

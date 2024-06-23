@@ -24,6 +24,11 @@ class WorkerAdapter(private var workersList: MutableList<Worker>?) :
     override fun onBindViewHolder(holder: workerViewHolder, position: Int) {
         val workerOb = workersList!![position]
         holder.bind(workerOb)
+        if (listener != null) {
+            holder.itemView.setOnClickListener() {
+                listener?.onItemClick(workerOb.id)
+            }
+        }
     }
 
     class workerViewHolder(workerItem: View) : RecyclerView.ViewHolder(workerItem) {
@@ -42,5 +47,13 @@ class WorkerAdapter(private var workersList: MutableList<Worker>?) :
     fun bindList(newList: MutableList<Worker>?) {
         workersList = newList
         notifyDataSetChanged()
+    }
+
+    //make onItem click listener
+
+    var listener: OnItemClickListener? = null
+
+    fun interface OnItemClickListener {
+        fun onItemClick(id: String)
     }
 }

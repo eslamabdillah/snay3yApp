@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/splash_background">
@@ -23,35 +23,91 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp">
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/horizontal_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.25" />
+
+
                 <include
                     android:id="@+id/main_job"
                     layout="@layout/item_job_details"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
-                <TextView
-                    android:id="@+id/header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="عروض الصنايعية"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/main_job"
-
-                    />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_offers"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/header"
-                    tools:listitem="@layout/item_worker_offer"
+                    android:background="@drawable/rounded_top_corner"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/main_job">
 
-                    />
+                    <TextView
+                        android:id="@+id/header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:text="عروض الصنايعية"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/main_job"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:text="الاقل سعرا"
+                            android:textColor="@color/colorPrimary" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorSecondary"
+                            android:text="الاعلى تقيما" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_no_offer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="لا توجد عروض حاليا"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        app:layout_constraintTop_toBottomOf="@+id/header"
+
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView_offers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@+id/header"
+                        tools:listitem="@layout/item_worker_offer"
+
+                        />
+
+
+                </LinearLayout>
+
 
                 <ProgressBar
                     android:id="@+id/progressBarOffers"
@@ -64,7 +120,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/header"
 
                     />
 

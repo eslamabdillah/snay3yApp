@@ -43,10 +43,38 @@ class ProfileFragment : Fragment() {
 
             }
 
+            "dailyWorker" -> {
+                setupProfileDailyWorker()
+            }
+
             else -> {
+
 
             }
         }
+    }
+
+    private fun setupProfileDailyWorker() {
+        binding.name.text = SessionUser.dailyWorker.name
+        binding.email.text = SessionUser.dailyWorker.email
+        binding.city.text = SessionUser.dailyWorker.city
+        binding.phone.text = SessionUser.dailyWorker.phone.toString()
+        binding.idNational.isVisible = false
+        binding.job.text = SessionUser.dailyWorker.job
+        binding.exp.isVisible = false
+        binding.clientsOpinions.visibility = View.GONE
+        binding.ratingBar.visibility = View.GONE
+        binding.txtExp.visibility = View.GONE
+        binding.txtJob.visibility = View.VISIBLE
+        binding.txtNational.visibility = View.GONE
+        binding.workerGallery.isVisible = false
+        Glide.with(this)
+            .load(SessionUser.dailyWorker.photoUrl)
+            .placeholder(R.drawable.logo) // Optional placeholder
+            .error(R.drawable.logo)
+            .into(binding.workerImage)
+        binding.btnSignOut.setOnClickListener { signOut() }
+
     }
 
     private fun setupProfileClient() {
@@ -77,6 +105,7 @@ class ProfileFragment : Fragment() {
         binding.job.text = SessionUser.worker.job
         binding.phone.text = SessionUser.worker.phone.toString()
         binding.idNational.text = SessionUser.worker.national_id.toString()
+
         Glide.with(this)
             .load(SessionUser.worker.photoUrl)
             .placeholder(R.drawable.logo) // Optional placeholder
@@ -91,7 +120,6 @@ class ProfileFragment : Fragment() {
         }
         binding.workerGallery.setOnClickListener {
             val fragment = FragmentGallery.newInstance(SessionUser.worker.id)
-
             loadChildFragment(fragment)
         }
         binding.btnSignOut.setOnClickListener { signOut() }

@@ -76,9 +76,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/button_ui"
-
         android:text="الدخول"
-
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -86,6 +84,21 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_password" />
+
+    <TextView
+        android:id="@+id/forget_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="نسيت كلمة السر ؟ "
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
+
 
     <TextView
         android:id="@+id/button_signup"

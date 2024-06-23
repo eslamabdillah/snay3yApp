@@ -14,6 +14,7 @@ data class Job(
     var duration: Int = 0,
     var workerOffers: MutableList<Offer> = mutableListOf(),
     var owner: String = "",
+    var ownerName: String = "",
     var date: Timestamp = Timestamp.now(),
     var state: String = StatesJob.NEW,
     var selectedOffer: String = "",
