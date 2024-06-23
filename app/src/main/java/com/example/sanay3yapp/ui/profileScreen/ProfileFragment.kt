@@ -57,6 +57,11 @@ class ProfileFragment : Fragment() {
         binding.idNational.isVisible = false
         binding.job.isVisible = false
         binding.exp.isVisible = false
+        binding.clientsOpinions.visibility = View.GONE
+        binding.ratingBar.visibility = View.GONE
+        binding.txtExp.visibility = View.GONE
+        binding.txtJob.visibility = View.GONE
+        binding.txtNational.visibility = View.GONE
         binding.clientsOpinions.setOnClickListener {
             loadChildFragment(FragmentClientsOpinions())
         }

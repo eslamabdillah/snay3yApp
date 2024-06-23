@@ -12,6 +12,7 @@ import com.example.sanay3yapp.databinding.FragmentHomeBinding
 import com.example.sanay3yapp.ui.Academy.Academy
 import com.example.sanay3yapp.ui.AddJobDialogFragment
 import com.example.sanay3yapp.ui.MainActivity
+import com.example.sanay3yapp.ui.SessionUser
 
 class HomeFragment : Fragment(), DialogDismissCallback {
 
@@ -27,7 +28,7 @@ class HomeFragment : Fragment(), DialogDismissCallback {
     ): View {
 
         homeFragmentBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        (activity as? MainActivity)?.changeFragmentTitle("الرئيسية - الوظائف")
+        (activity as? MainActivity)?.changeFragmentTitle("الرئيسية")
 
         return binding.root
     }
@@ -35,17 +36,29 @@ class HomeFragment : Fragment(), DialogDismissCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (SessionUser.currentUserType == "client") {
+            binding.Academy.visibility = View.GONE
+        }
+
+
+
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_content, HomeFragmentJobs())
             .commit()
 
         homeFragmentBinding!!.workers.setOnClickListener {
+            binding.workers.setBackgroundResource(R.drawable.pressed_button)
+            binding.offers.setBackgroundResource(R.drawable.unpressed_button)
+
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_content, HomeFragmentWorker())
                 .commit()
         }
 
         homeFragmentBinding!!.offers.setOnClickListener {
+            binding.workers.setBackgroundResource(R.drawable.unpressed_button)
+            binding.offers.setBackgroundResource(R.drawable.pressed_button)
+
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_content, HomeFragmentJobs())
                 .commit()

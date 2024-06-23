@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.databinding.FragmentHomeWorkersBinding
-import com.example.sanay3yapp.ui.MainActivity
 import dataBase.fireStore.DAO
 import dataBase.models.Worker
 
@@ -22,8 +21,6 @@ class HomeFragmentWorker : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         workerBinding = FragmentHomeWorkersBinding.inflate(inflater, container, false)
-        (activity as? MainActivity)?.changeFragmentTitle("الرئيسية - الصنايعية")
-
         return workerBinding.root
     }
 

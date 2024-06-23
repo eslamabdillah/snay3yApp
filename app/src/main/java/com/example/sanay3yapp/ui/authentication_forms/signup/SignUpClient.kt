@@ -73,8 +73,9 @@ class SignUpClient : AppCompatActivity() {
                         startActivity(intent)
                     }
                 } else {
-                    // If user creation fails, display a message to the user.
-                    // Handle the sign up error (e.g., email format invalid, password too weak)
+                    val exception = task.exception
+                    val errorMessage = exception?.localizedMessage ?: "User creation failed"
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
     }

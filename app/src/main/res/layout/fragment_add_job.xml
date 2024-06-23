@@ -88,8 +88,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
-                    android:hint="ادخل الميزانية" />
+                    android:hint="ادخل المدة بالايام" />
+
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="المكان"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_duration_container" />
+
+            <Spinner
+                android:id="@+id/spinner_Places"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/spinner_places"
+                android:textDirection="rtl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_place"
+
+                />
 
             <Button
                 android:id="@+id/add_job"
@@ -97,13 +123,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:inputType="number"
-
                 android:backgroundTint="@color/colorSecondary"
                 android:text="اضافة الوظيفة"
                 android:textSize="32sp"
+                android:padding="12dp"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/job_duration_container" />
+                app:layout_constraintTop_toBottomOf="@id/spinner_Places" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

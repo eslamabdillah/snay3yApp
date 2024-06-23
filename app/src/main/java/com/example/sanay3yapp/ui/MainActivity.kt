@@ -1,6 +1,7 @@
 package com.example.sanay3yapp.ui
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
@@ -19,60 +20,58 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        // Assuming you have a BottomNavigationView with id bottomTabs in your layout
+        if (SessionUser.currentUserType == "dailyWorker") {
+            val menu = mainBinding.bottomTabs.menu
+            menu.removeItem(R.id.navigation_job)
+            menu.removeItem(R.id.navigation_offer)
+        }
+
+        // Set up BottomNavigationView listener
         mainBinding.bottomTabs.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    showFragmentSelected(HomeFragment())
-                    true
-                }
-
-                R.id.navigation_job -> {
-                    showFragmentSelected(JobFragment())
-                    true
-                }
-
-                R.id.navigation_profile -> {
-                    showFragmentSelected(ProfileFragment())
-                    true
-                }
-
-                R.id.navigation_offer -> {
-                    showFragmentSelected(ChatFragment())
-                    true
-                }
-
-                R.id.navigation_daily -> {
-                    showFragmentSelected(DailyFragment())
-                    true
-                }
-
-
-                else -> false
+            when (SessionUser.currentUserType) {
+                "dailyWorker" -> showForDailyWorker(item)
+                else -> showForWorkerClient(item)
             }
         }
 
         // Set default selected item if needed
         mainBinding.bottomTabs.selectedItemId = R.id.navigation_home
-
-        //add job
-
     }
 
     override fun onStart() {
         super.onStart()
-
+        // Additional onStart logic if needed
     }
 
-    private fun showFragmentSelected(fragment: Fragment) {
+    private fun showFragmentSelected(fragment: Fragment): Boolean {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
+        return true
     }
 
     fun changeFragmentTitle(title: String) {
         mainBinding.fragmentTitle.text = title
     }
 
+    private fun showForWorkerClient(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.navigation_home -> showFragmentSelected(HomeFragment())
+            R.id.navigation_job -> showFragmentSelected(JobFragment())
+            R.id.navigation_profile -> showFragmentSelected(ProfileFragment())
+            R.id.navigation_offer -> showFragmentSelected(ChatFragment())
+            R.id.navigation_daily -> showFragmentSelected(DailyFragment())
+            else -> false
+        }
+    }
 
+    private fun showForDailyWorker(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.navigation_home -> showFragmentSelected(HomeFragment())
+            R.id.navigation_profile -> showFragmentSelected(ProfileFragment())
+            R.id.navigation_daily -> showFragmentSelected(DailyFragment())
+            else -> false
+        }
+    }
 }

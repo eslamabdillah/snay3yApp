@@ -17,7 +17,8 @@ data class Job(
     var date: Timestamp = Timestamp.now(),
     var state: String = StatesJob.NEW,
     var selectedOffer: String = "",
-    var selectedWorker: String = ""
+    var selectedWorker: String = "",
+    var city: String = ""
 
 
 ) : Parcelable

@@ -29,6 +29,12 @@ object Functions {
         return sdf.format(date) // Format the date
     }
 
+    fun convertToDateToMessage(timestamp: Timestamp): String {
+        var date = timestamp.toDate()
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return sdf.format(date) // Format the date
+    }
+
 }
 
 

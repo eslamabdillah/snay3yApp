@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:id="@+id/fragment_job_container_in_job"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_job_container_in_job"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,67 +17,63 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3"
+            android:background="@drawable/app_bar_job_fragment"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/compelte_job"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:background="@drawable/work_now_job_background"
+                android:layout_marginHorizontal="4dp"
                 android:gravity="center"
-                android:paddingHorizontal="8dp"
+                android:background="@drawable/button_job_fragment"
+                android:padding="8dp"
+
                 android:text="مكتملة"
                 android:textColor="@color/white"
-                android:textSize="36sp"
-
-                />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/now_jobs"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/work_now_job_background"
+                android:layout_gravity="bottom"
                 android:gravity="center"
-                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="4dp"
                 android:text="تعمل الان"
+                android:background="@drawable/button_job_fragment"
+                android:padding="8dp"
                 android:textColor="@color/white"
-                android:textSize="36sp"
-
-
-                />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/new_jobs"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:background="@drawable/work_now_job_background"
+                android:layout_marginHorizontal="4dp"
                 android:gravity="center"
-                android:paddingHorizontal="8dp"
+                android:background="@drawable/button_job_fragment"
                 android:text="جديدة"
+                android:padding="8dp"
                 android:textColor="@color/white"
-                android:textSize="36sp"
-
-
-                />
-
-
+                android:textSize="22sp" />
         </LinearLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_inWorkJobs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:padding="5dp"
             android:theme="@style/RecyclerViewThemeOverlay"
             app:layout_constraintTop_toBottomOf="@id/types_jobs"
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_job" />
 
@@ -102,6 +96,5 @@
         android:gravity="center"
         android:text="لا توجد وظائف بعد"
         android:textSize="28sp" />
-
 
 </FrameLayout>

@@ -43,6 +43,17 @@ object DAO {
 
     }
 
+    fun getDailyWorker(
+        dailyWorkerId: String,
+        onCompleteListener: OnCompleteListener<DocumentSnapshot>
+    ) {
+        val dailyWorkerRef = db.collection("dailyWorkers")
+            .document(dailyWorkerId)
+
+        dailyWorkerRef.get()
+            .addOnCompleteListener(onCompleteListener)
+    }
+
 
     fun getAllJobs(onCompleteListener: OnCompleteListener<QuerySnapshot>) {
         db.collection("jobs")
@@ -438,9 +449,13 @@ object DAO {
 
         clientRef.get().addOnSuccessListener { document ->
             if (document.exists() && document != null) {
-                var inWorkList = document.data?.get("inWorkJob") as List<String>
+                var inWorkList = document.data?.get("inWorkJob") as? List<String> ?: emptyList()
+
+
                 onCompleteListener(Result.success(inWorkList))
 
+            } else {
+                onCompleteListener(Result.success(emptyList()))
             }
 
         }.addOnFailureListener {

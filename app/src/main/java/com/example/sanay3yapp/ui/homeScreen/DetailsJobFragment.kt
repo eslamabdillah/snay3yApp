@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.sanay3yapp.R
@@ -52,12 +53,26 @@ class DetailsJobFragment : Fragment(), DialogDismissCallback {
         binding.progressBar.visibility = View.VISIBLE
         binding.content.visibility = View.GONE
 
+        val color = ContextCompat.getColor(requireContext(), R.color.colorSecondaryLight)
+
         loadJob()
         setupView()
         setupAdapter()
 
         binding.mainJob.giveOffer.setOnClickListener({
-            setupGiveOfferButton()
+            if (SessionUser.currentUserType == "dailyWorker") {
+                binding.mainJob.workerOnly.visibility = View.VISIBLE
+                binding.mainJob.giveOffer.setBackgroundColor(color)
+                Toast.makeText(
+                    requireContext(),
+                    "لا يمكن تقديم عرض بواسطة مساعد او فواعلى",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            } else {
+                setupGiveOfferButton()
+
+            }
         })
 
 

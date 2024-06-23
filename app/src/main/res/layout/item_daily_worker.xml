@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:padding="10dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="20dp">
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:layout_height="wrap_content">
 
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <ImageView
             android:id="@+id/daily_worker_photo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/logo"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/CircularImageView"
@@ -31,63 +30,59 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="عبدالرحمن راشد"
-            android:textSize="32sp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toTopOf="@id/rate_daily_worker"
+            android:layout_marginEnd="28dp"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="@id/daily_worker_photo"
             app:layout_constraintEnd_toStartOf="@id/daily_worker_photo"
             app:layout_constraintTop_toTopOf="@id/daily_worker_photo" />
 
-        <RatingBar
-            android:id="@+id/rate_daily_worker"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:numStars="5"
-            android:rating="4.5"
-            android:stepSize="0.1"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/daily_worker_photo"
-            app:layout_constraintEnd_toStartOf="@id/daily_worker_photo"
-            app:layout_constraintTop_toBottomOf="@id/name" />
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#B8B8B8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/daily_worker_photo"
+            app:layout_constraintWidth_percent="0.5" />
 
         <TextView
             android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="المكان : الجيزة"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="@id/daily_worker_photo"
-            app:layout_constraintTop_toBottomOf="@id/daily_worker_photo" />
+            android:layout_marginTop="8dp"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/job"
+            app:layout_constraintTop_toBottomOf="@id/line" />
 
         <TextView
             android:id="@+id/job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="الشغلانة : فواعلى"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="@id/daily_worker_photo"
-            app:layout_constraintTop_toBottomOf="@id/place" />
+            android:layout_marginTop="8dp"
+            android:textSize="22sp"
 
-        <TextView
-            android:id="@+id/startFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="اليومية تبدأ من : "
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="@id/daily_worker_photo"
-            app:layout_constraintTop_toBottomOf="@id/job" />
+            app:layout_constraintEnd_toStartOf="@id/place"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+
 
         <TextView
             android:id="@+id/salary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:text="200 جنيه"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toStartOf="@id/startFrom"
-            app:layout_constraintTop_toBottomOf="@id/job" />
+            android:text="اليومية تبدا من : 150 جنيه"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/job"
+
+
+            />
 
         <Button
             android:id="@+id/call"
@@ -95,21 +90,10 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorSecondary"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:text="اتصل"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/employ"
-            app:layout_constraintTop_toBottomOf="@id/salary" />
-
-        <Button
-            android:id="@+id/employ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:backgroundTint="@color/colorSecondary"
-            android:text="توظيف"
-            app:layout_constraintEnd_toEndOf="@id/call"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/salary" />
 

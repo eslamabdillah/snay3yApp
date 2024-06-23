@@ -11,7 +11,6 @@
         android:id="@+id/second_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,6 +23,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="الصنايعية"
+            android:background="@drawable/unpressed_button"
             android:textColor="@color/white"
             android:textSize="28sp" />
 
@@ -35,6 +35,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="العروض"
+            android:background="@drawable/pressed_button"
             android:textColor="@color/white"
             android:textSize="28sp" />
     </LinearLayout>
@@ -60,9 +61,12 @@
         android:id="@+id/add_job"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:src="@drawable/icon_add"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:backgroundTint="@color/colorPrimary" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

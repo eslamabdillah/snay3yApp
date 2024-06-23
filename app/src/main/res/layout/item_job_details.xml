@@ -159,6 +159,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/duration_container" />
 
+        <TextView
+            android:id="@+id/workerOnly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="يمكن للصنايعى فقط تقديم العروض"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/give_offer" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

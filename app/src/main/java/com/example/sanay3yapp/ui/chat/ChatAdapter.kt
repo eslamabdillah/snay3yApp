@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.sanay3yapp.R
+import com.example.sanay3yapp.ui.Functions
 import com.example.sanay3yapp.ui.SessionUser
 import dataBase.models.Message
 
@@ -20,16 +21,20 @@ class ChatAdapter(var list: MutableList<Message>? = null) :
         private var received_message: TextView = view.findViewById(R.id.txt_received_message)
         private var sendMessageLayout: LinearLayout = view.findViewById(R.id.send_message)
         private var receivedMessageLayout: LinearLayout = view.findViewById(R.id.received_message)
+        private var date: TextView = view.findViewById(R.id.txt_send_date)
 
         fun bindDataForSend(message: Message) {
             receivedMessageLayout.isVisible = false
             send_message.text = message.content
+            date.text = Functions.convertToDateToMessage(message.time)
 
         }
 
         fun bindDateForReceived(message: Message) {
             sendMessageLayout.isVisible = false
             received_message.text = message.content
+            date.text = Functions.convertToDateToMessage(message.time)
+
         }
 
 
