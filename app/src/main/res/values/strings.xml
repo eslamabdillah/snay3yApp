@@ -11,11 +11,27 @@
         <item>الدقى</item>
     </string-array>
 
+    <string-array name="spinner_places_search">
+        <item>حلوان</item>
+        <item>القاهرة</item>
+        <item>الجيزة</item>
+        <item>الدقى</item>
+        <item>كل المحافظات</item>
+    </string-array>
+
     <string-array name="spinner_jobs">
         <item>كهربائى</item>
         <item>سباك</item>
         <item>نقاش</item>
         <item>بنه</item>
+    </string-array>
+
+    <string-array name="spinner_jobs_search">
+        <item>كهربائى</item>
+        <item>سباك</item>
+        <item>نقاش</item>
+        <item>بنه</item>
+        <item>كل الصنايعية</item>
     </string-array>
 
     <string-array name="spinner_assistant">
