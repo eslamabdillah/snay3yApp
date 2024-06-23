@@ -7,111 +7,135 @@
     android:id="@+id/fullJob"
     android:background="@drawable/background3">
 
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        tools:context=".ui.homeScreen.HomeFragment">
 
         <LinearLayout
-            android:id="@+id/types_jobs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/compelte_job"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/work_now_job_background"
-                android:gravity="center"
-                android:paddingHorizontal="8dp"
-                android:text="مكتملة"
-                android:textColor="@color/white"
-                android:textSize="36sp"
-
-                />
-
-            <TextView
-                android:id="@+id/now_jobs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/work_now_job_background"
-                android:gravity="center"
-                android:paddingHorizontal="8dp"
-                android:text="الحالية"
-                android:textColor="@color/white"
-                android:textSize="36sp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-                />
-
-            <TextView
-                android:id="@+id/offers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/work_now_job_background"
-                android:gravity="center"
-                android:paddingHorizontal="8dp"
-                android:text="العروض"
-                android:textColor="@color/white"
-                android:textSize="36sp"
-
-
-                />
-
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/worker_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:theme="@style/RecyclerViewThemeOverlay"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/types_jobs"
-            tools:listitem="@layout/item_job" />
-
-        <ScrollView
-            android:id="@+id/rest_job_screen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/types_jobs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background2"
-                android:padding="4dp">
+                android:orientation="horizontal"
+                android:background="@drawable/app_bar_job_fragment"
+                android:weightSum="3"
+                app:layout_constraintTop_toTopOf="parent">
 
-
-                <include
-                    android:id="@+id/confirm_job"
-                    layout="@layout/item_job"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/compelte_job"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/button_job_fragment"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="8dp"
+                    android:text="مكتملة"
+                    android:textSize="22sp"
 
-                <include
-                    android:id="@+id/details_confirm_job"
-                    layout="@layout/layout_details_offer_for_job"
+
+                    />
+
+                <TextView
+                    android:id="@+id/now_jobs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/button_job_fragment"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="8dp"
+                    android:text="الحالية"
+                    android:textSize="22sp"
+
+
+                    />
+
+                <TextView
+                    android:id="@+id/offers"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/button_job_fragment"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="8dp"
+                    android:text="العروض"
+
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/worker_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:theme="@style/RecyclerViewThemeOverlay"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/types_jobs"
+                tools:listitem="@layout/item_job" />
+
+            <ScrollView
+                android:id="@+id/rest_job_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/confirm_job" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:background="@drawable/background2"
+                    android:padding="4dp">
 
-        </ScrollView>
-    </LinearLayout>
+
+                    <include
+                        android:id="@+id/confirm_job"
+                        layout="@layout/item_job"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include
+                        android:id="@+id/details_confirm_job"
+                        layout="@layout/layout_details_offer_for_job"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/confirm_job" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_dec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="الوظايف لم تختر لها عامل"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

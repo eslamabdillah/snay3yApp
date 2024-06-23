@@ -196,10 +196,21 @@ class DetailsJobFragment : Fragment(), DialogDismissCallback {
     }
 
     fun changeAdapterList() {
+
+
 // Sort the workerOffers list by date
         val sortedOffers = job.workerOffers.sortedBy { it.date }
+
+        if (sortedOffers.isEmpty()) {
+            binding.txtNoOffer.visibility = View.VISIBLE
+            adapter.bindList(sortedOffers.reversed().toMutableList())
+
+        } else {
+            binding.txtNoOffer.visibility = View.GONE
+            adapter.bindList(sortedOffers.reversed().toMutableList())
+
+        }
         // Update the adapter with the sorted list
-        adapter.bindList(sortedOffers.reversed().toMutableList())
     }
 
     fun loadChildFragment(childFragment: Fragment) {

@@ -60,6 +60,8 @@ class DetailsOfferOfWorkerFragment : Fragment(), MessageDialogFragment.OnButtonC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.detailsOffer.text = currentOffer?.details
+        binding.cost.text = "الميزانية : ${currentOffer?.cost.toString()}"
+        binding.duration.text = "المدة : ${currentOffer?.duration.toString()}"
 
         binding.progressBar.visibility = View.GONE
 

@@ -40,6 +40,10 @@ class HomeFragment : Fragment(), DialogDismissCallback {
             binding.Academy.visibility = View.GONE
         }
 
+        if (SessionUser.currentUserType == "worker") {
+            binding.addJob.visibility = View.GONE
+        }
+
 
 
         childFragmentManager.beginTransaction()

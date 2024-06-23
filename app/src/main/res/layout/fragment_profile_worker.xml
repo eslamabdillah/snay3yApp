@@ -21,7 +21,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/app_bar_job_fragment"
                 app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,15 +236,6 @@
                     android:text="تعديل"
                     android:textSize="28sp" />
 
-                <TextView
-                    android:id="@+id/forget_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:gravity="center"
-                    android:text="نسيت كلمة السر ؟ "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="28sp" />
 
                 <Button
                     android:id="@+id/btn_signOut"

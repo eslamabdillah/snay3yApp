@@ -124,9 +124,9 @@ class JobFragment : Fragment() {
                 binding.workerRecyclerView.visibility = View.GONE
                 binding.txtNotJobs.visibility = View.GONE
 
-                binding.offers.setBackgroundResource(R.drawable.work_now_job_background)
-                binding.compelteJob.setBackgroundResource(R.drawable.work_now_job_background)
-                binding.nowJobs.setBackgroundResource(R.drawable.compelete_job_background)
+                binding.compelteJob.setBackgroundResource(R.drawable.button_job_fragment)
+                binding.nowJobs.setBackgroundResource(R.drawable.button_job_fragment_agree)
+                binding.offers.setBackgroundResource(R.drawable.button_job_fragment)
 
                 DAO.getWorker(SessionUser.worker.id) { task ->
                     if (task.isSuccessful) {
@@ -158,11 +158,12 @@ class JobFragment : Fragment() {
                 binding.workerRecyclerView.visibility = View.GONE
                 binding.txtNotJobs.visibility = View.GONE
 
-                binding.nowJobs.setBackgroundResource(R.drawable.work_now_job_background)
-                binding.offers.setBackgroundResource(R.drawable.work_now_job_background)
-                binding.compelteJob.setBackgroundResource(R.drawable.compelete_job_background)
 
 
+
+                binding.compelteJob.setBackgroundResource(R.drawable.button_job_fragment_agree)
+                binding.nowJobs.setBackgroundResource(R.drawable.button_job_fragment)
+                binding.offers.setBackgroundResource(R.drawable.button_job_fragment)
                 completeJobsList.clear()
 
                 setupAdapterCompleteJobsForWorker()
@@ -176,9 +177,9 @@ class JobFragment : Fragment() {
                 binding.workerRecyclerView.visibility = View.GONE
                 binding.txtNotJobs.visibility = View.GONE
 
-                binding.nowJobs.setBackgroundResource(R.drawable.work_now_job_background)
-                binding.compelteJob.setBackgroundResource(R.drawable.work_now_job_background)
-                binding.offers.setBackgroundResource(R.drawable.compelete_job_background)
+                binding.compelteJob.setBackgroundResource(R.drawable.button_job_fragment)
+                binding.nowJobs.setBackgroundResource(R.drawable.button_job_fragment)
+                binding.offers.setBackgroundResource(R.drawable.button_job_fragment_agree)
 
                 setupAdapterOffers()
                 downloadListOffers()

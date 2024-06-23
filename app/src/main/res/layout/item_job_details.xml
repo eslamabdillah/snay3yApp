@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/colorSecondaryLight"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="12dp"
+    app:cardCornerRadius="32dp"
+    app:cardElevation="0dp"
     tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="12dp">
 
 
         <TextView
@@ -23,6 +22,7 @@
             android:layout_marginBottom="5dp"
             android:text="محتاج نقاش لشقة 120 متر"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
@@ -34,20 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="ا12 / 10 / 2024"
-            android:textSize="16sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/job_name"
             app:layout_constraintTop_toBottomOf="@id/job_name" />
 
-        <View
-            android:id="@+id/line1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date"
-            app:layout_constraintWidth_percent="0.8" />
 
         <TextView
             android:id="@+id/details"
@@ -57,7 +47,7 @@
             android:lines="2"
             android:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
             android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@id/line1" />
+            app:layout_constraintTop_toBottomOf="@id/date" />
 
         <View
             android:id="@+id/line"
@@ -155,6 +145,8 @@
             android:backgroundTint="@color/colorSecondary"
             android:text="قدم عرض"
             android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/duration_container" />

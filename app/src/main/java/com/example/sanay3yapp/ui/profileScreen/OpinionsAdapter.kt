@@ -17,12 +17,15 @@ class OpinionsAdapter(var opinionsList: MutableList<ClientOpinion>? = null) :
         var rate_delivery: RatingBar = view.findViewById(R.id.rating_delivery)
         var rate_workAgain: RatingBar = view.findViewById(R.id.rating_workAgain)
         var opinionText: TextView = view.findViewById(R.id.client_opinion)
+        var jobName: TextView = view.findViewById(R.id.job_name)
 
         fun bindData(opinion: ClientOpinion) {
             rate_quality.rating = opinion.rateQuality
             rate_delivery.rating = opinion.rateDelivery
             rate_workAgain.rating = opinion.rateWorkAgain
             opinionText.text = opinion.opinionText
+            jobName.text = opinion.jobName
+
 
         }
 
