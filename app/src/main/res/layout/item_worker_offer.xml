@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/worker_image"
             android:layout_width="100dp"
             android:layout_height="wrap_content"

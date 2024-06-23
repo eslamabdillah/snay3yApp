@@ -1,6 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            >
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/fragment_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="الاكاديمية"
+                    android:textColor="@color/colorPrimaryExtraLight"
+                    android:textSize="30sp" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="مرحبا فى الاكاديمية "
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_margin="12dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="المهن المتوفرة"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:textColor="@color/colorSecondary"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/KHRBAAY_workers"
+                android:layout_width="450px"
+                android:layout_height="300px"
+                android:gravity="center"
+                android:text="مهنة الكهربائي "
+                android:textSize="28sp"
+                android:background="@drawable/work_now_job_background"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/SBAK_workers"
+                android:layout_width="450px"
+                android:layout_height="300px"
+                android:gravity="center"
+                android:text="مهنة السباك  "
+                android:textSize="28sp"
+                android:background="@drawable/work_now_job_background"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/NAASH_workers"
+                android:layout_width="450px"
+                android:layout_height="300px"
+                android:gravity="center"
+                android:text="مهنة نقاش "
+                android:textSize="28sp"
+                android:background="@drawable/work_now_job_background"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/BNA_workers"
+                android:layout_width="450px"
+                android:layout_height="300px"
+                android:gravity="center"
+                android:text="مهنة بنة "
+                android:textSize="28sp"
+                android:background="@drawable/work_now_job_background"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                />
+
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/logOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_margin="24dp"
+            android:layout_gravity="center"
+            android:background="@drawable/compelete_job_background"/>
+
+    </LinearLayout>
+
+</ScrollView>

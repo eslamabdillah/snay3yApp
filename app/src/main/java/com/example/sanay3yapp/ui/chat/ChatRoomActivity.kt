@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.sanay3yapp.R
 import com.example.sanay3yapp.databinding.ActivityChatRoomBinding
 import com.example.sanay3yapp.ui.SessionUser
 import com.google.firebase.firestore.toObject
@@ -76,14 +78,17 @@ class ChatRoomActivity : AppCompatActivity() {
                 DAO.getJob(currentRoom!!.jobId) { task ->
                     if (task.isSuccessful) {
                         val currentJob = task.result.toObject<Job>()
-                        binding.jobTitle.text = currentJob!!.name
+                        binding.jobTitle.text = "الوظيفة : ${currentJob!!.name}"
                         if (SessionUser.currentUserType == "client") {
                             DAO.getWorker(currentRoom!!.workerId) { task ->
                                 if (task.isSuccessful) {
                                     val worker = task.result.toObject(Worker::class.java)
                                     binding.chatTitle.text = worker!!.name
-                                    Log.d("personName", worker.name)
-
+                                    Glide.with(this)
+                                        .load(SessionUser.worker.photoUrl)
+                                        .placeholder(R.drawable.logo) // Optional placeholder
+                                        .error(R.drawable.logo)
+                                        .into(binding.chatImage)
 
                                 } else {
 

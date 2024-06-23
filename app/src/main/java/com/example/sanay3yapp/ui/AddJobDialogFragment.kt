@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import com.example.sanay3yapp.databinding.FragmentAddJobBinding
 import com.example.sanay3yapp.ui.homeScreen.DialogDismissCallback
@@ -30,6 +31,22 @@ class AddJobDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.spinnerPlaces.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                postion: Int,
+                id: Long
+            ) {
+                newJob.city = parent?.getItemAtPosition(postion).toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         binding.addJob.setOnClickListener({
             if (validation() == true) {

@@ -28,13 +28,11 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/worker_image"
-                android:layout_width="0dp"
+                android:layout_width="250dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="80dp"
                 android:src="@drawable/logo"
                 android:scaleType="centerCrop"
-                app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintWidth_percent="0.50"
                 app:shapeAppearanceOverlay="@style/CircularImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +115,13 @@
                     android:textSize="28sp" />
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="رقم الموبيل"
+                    android:textSize="24sp" />
+
+                <TextView
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,6 +131,14 @@
                     android:paddingVertical="8dp"
                     android:text="01033242661"
                     android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/txt_national"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="الرقم القومى"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/id_national"
@@ -139,6 +152,14 @@
                     android:textSize="28sp" />
 
                 <TextView
+                    android:id="@+id/txt_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="المهنة"
+                    android:textSize="24sp" />
+
+                <TextView
                     android:id="@+id/job"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -148,6 +169,14 @@
                     android:paddingVertical="8dp"
                     android:text="كهربائى"
                     android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/txt_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="المدينة"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/city"
@@ -161,6 +190,14 @@
                     android:textSize="28sp" />
 
                 <TextView
+                    android:id="@+id/txt_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="تاريخ الميلاد"
+                    android:textSize="24sp" />
+
+                <TextView
                     android:id="@+id/birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -170,6 +207,14 @@
                     android:paddingVertical="8dp"
                     android:text="10/12/1996"
                     android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/txt_exp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="سنين الخبرة"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/exp"
@@ -205,7 +250,10 @@
                     android:id="@+id/btn_signOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="تسجيل الخروج" />
+                    android:layout_marginHorizontal="64dp"
+                    android:backgroundTint="#D65858"
+                    android:text="تسجيل الخروج"
+                    android:textSize="28sp" />
 
             </LinearLayout>
 

@@ -14,6 +14,7 @@ import com.google.firebase.firestore.ktx.toObject
 import dataBase.fireStore.DAO
 import dataBase.models.Admin
 import dataBase.models.Client
+import dataBase.models.DailyWorker
 import dataBase.models.Worker
 
 class LoginActivity : AppCompatActivity() {
@@ -101,10 +102,25 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, AdminActivity::class.java)
                 startActivity(intent)
             } else {
+                checkDailyWorkerRole(uid)
+            }
+        }
+    }
+
+    private fun checkDailyWorkerRole(uid: String) {
+        DAO.getDailyWorker(uid) { dailyWorkerDoc ->
+            if (dailyWorkerDoc.isSuccessful && dailyWorkerDoc.result.exists()) {
+                SessionUser.dailyWorker = dailyWorkerDoc.result.toObject<DailyWorker>()!!
+                SessionUser.mode = true
+                SessionUser.currentUserType = "dailyWorker"
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
                 Toast.makeText(this, "No user role found", Toast.LENGTH_LONG).show()
             }
         }
     }
+
 
     private fun navigateToMain() {
         val intent = Intent(this, MainActivity::class.java)

@@ -86,6 +86,7 @@ class ChatFragment : Fragment() {
                     // No jobs to load, update UI accordingly
                     changeListAdapterCompleteJobs()
 
+
                 } else {
                     roomsList.forEach { roomId ->
                         DAO.getChatRoom(roomId) { task ->

@@ -3,21 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="@color/colorSecondary"
-    app:cardCornerRadius="20dp"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
     app:cardElevation="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/worker_image"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textSize="32sp"
+            android:textSize="28sp"
             android:text="اسلام احمد عبداللاه"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/worker_image"
@@ -47,6 +45,17 @@
             app:layout_constraintEnd_toStartOf="@id/worker_image"
             app:layout_constraintTop_toBottomOf="@id/name_worker_item" />
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="#B8B8B8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/worker_image"
+            app:layout_constraintWidth_percent="0.8" />
+
         <TextView
             android:id="@+id/place_worker_item"
             android:layout_width="wrap_content"
@@ -54,9 +63,11 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="المكان : حلوان"
-            android:textSize="28sp"
+            android:layout_marginHorizontal="12dp"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@id/job"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/worker_image" />
+            app:layout_constraintTop_toBottomOf="@id/line" />
 
         <TextView
             android:id="@+id/job"
@@ -65,9 +76,13 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="الصنعة : كهربائى"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/place_worker_item" />
+            android:layout_marginHorizontal="12dp"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toStartOf="@id/place_worker_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,7 +99,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="يعمل الان"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/job" />
@@ -92,10 +107,8 @@
             <ImageView
                 android:id="@+id/circle"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="2dp"
+                android:layout_margin="2dp"
                 android:src="@drawable/work_circle" />
 
         </LinearLayout>

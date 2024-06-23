@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/colorSecondaryLight"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
     tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,86 +28,121 @@
 
             />
 
+        <ImageView
+            android:id="@+id/icon_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/icon_person"
+            app:layout_constraintEnd_toEndOf="@id/job_name"
+            app:layout_constraintTop_toBottomOf="@id/job_name" />
+
+        <TextView
+            android:id="@+id/name_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="4dp"
+            android:text="اسلام احمد"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+
+            app:layout_constraintEnd_toStartOf="@+id/icon_person"
+            app:layout_constraintTop_toBottomOf="@id/job_name" />
+
+        <ImageView
+            android:id="@+id/icon_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+
+            android:src="@drawable/icon_date"
+            app:layout_constraintEnd_toStartOf="@id/name_owner"
+            app:layout_constraintTop_toBottomOf="@id/job_name" />
+
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12 / 10 / 2024"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="4dp"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/job_name"
+            android:textColor="@color/colorSecondary"
+            app:layout_constraintEnd_toStartOf="@id/icon_date"
             app:layout_constraintTop_toBottomOf="@id/job_name" />
 
-        <View
-            android:id="@+id/line1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date"
-            app:layout_constraintWidth_percent="0.8" />
 
         <TextView
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:lines="2"
             tools:text="عندي 3 شقق وصالة محتاج اعملها تشطيب كهرباء كامله فى التجمع الخامس"
             android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@id/line1" />
+            app:layout_constraintTop_toBottomOf="@id/date" />
 
         <View
             android:id="@+id/line"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
+            android:background="#B8B8B8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details"
-            app:layout_constraintWidth_percent="0.8" />
+            app:layout_constraintWidth_percent="1" />
 
         <LinearLayout
-            android:id="@+id/cost_container"
+            android:id="@+id/job_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/line">
 
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/cost_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="جنيه"
-                android:textSize="18sp" />
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line">
 
-            <TextView
-                android:id="@+id/cost"
+
+                <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:padding="4dp"
-                android:background="@drawable/edittext_background"
-                android:gravity="center"
-                tools:text="1000 "
-                android:textSize="18sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="جنيه"
+                    android:layout_weight="0.1"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="الميزانية    "
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    android:gravity="center"
+                    tools:text="1000 "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.1"
+                    android:text="الميزانية        :"
+                    android:textSize="18sp" />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
         <LinearLayout
             android:id="@+id/duration_container"
@@ -124,17 +158,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                tools:text="يوم "
+                android:layout_margin="5dp"
+                android:layout_weight="0.1"
+                android:text="يوم"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:background="@drawable/edittext_background"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="4dp"
                 tools:text="10 "
@@ -143,11 +177,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="مدة التنفيذ"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.1"
+                android:text="مدة التنفيذ    :"
                 android:textSize="18sp" />
 
 
+        </LinearLayout>
         </LinearLayout>
 
 
